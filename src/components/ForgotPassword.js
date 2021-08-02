@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 function ForgotPassword(props) {
-    return (
-        <div>
-            Forgot Password
-        </div>
-    );
+	return <div>Forgot Password</div>;
 }
 
 export default ForgotPassword;
