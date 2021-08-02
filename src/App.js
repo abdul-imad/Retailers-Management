@@ -1,8 +1,10 @@
 import React from "react";
-import Counter from "./components/Counter";
+
 
 function App() {
-	return <Counter />;
+	return (
+		<div>Inventory management</div>
+	)
 }
 
 export default App;
