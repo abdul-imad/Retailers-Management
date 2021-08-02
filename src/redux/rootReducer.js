@@ -1,9 +1,11 @@
-const initialState = {
-	count: 1,
-};
+import {combineReducers} from "redux"
+import loginReducer from "./loginReducer"
 
-const rootReducer = () => {
-	return initialState;
-};
+const rootReducer=combineReducers({
+	Login:loginReducer
+})
 
 export default rootReducer;
+
+
+
