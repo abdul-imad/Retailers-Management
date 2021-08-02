@@ -5,5 +5,10 @@ import "firebase/storage";
 const firebaseConfig = require("./firebaseConfig");
 firebase.initializeApp(firebaseConfig);
 
+export const auth = firebase.auth();
+export const storage = firebase.storage();
+export const db = firebase.firestore();
 
-export const Auth = firebase.auth();
+export const database = {
+	getTimeStamp: firebase.firestore.FieldValue.serverTimestamp,
+};
