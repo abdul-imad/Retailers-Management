@@ -16,10 +16,12 @@ function Login(props) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          border:"2px solid blue"
         },
         card:{
-            height:"20rem",
-            width:"20rem"
+            height:"25rem",
+            width:"20rem",
+            border:"2px solid lightblue"
         },
         alignCenter: {
           justifyContent: "center",
