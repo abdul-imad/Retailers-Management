@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+
 import Sidebar from "./Sidebar";
 
 const useStyles = makeStyles({
-	root: {
+	innerRoot: {
 		flexGrow: 1,
 	},
 	card: {
@@ -17,24 +18,43 @@ const useStyles = makeStyles({
 		margin: "10px",
 	},
 	dashboard: {
-		marginTop: "10px",
+		marginTop: "80px",
 		display: "flex",
 	},
 	title: {
 		fontSize: 20,
 	},
+	root: {
+		display: "flex",
+	},
 });
 
 export default function DashBoard() {
 	const classes = useStyles();
+	const [open, setOpen] = React.useState(false);
+
+	const handleDrawerOpen = () => {
+		setOpen(true);
+	};
+
+	const handleDrawerClose = () => {
+		setOpen(false);
+	};
+
 	return (
 		<div className={classes.root}>
-			<Grid container spacing={0}>
-				<Grid item xs={2} sm={2}>
-					<Sidebar />
-				</Grid>
-
-				<Grid item xs={10} sm={10}>
+			<div className={classes.innerRoot}>
+				<Sidebar
+					open={open}
+					handleDrawerOpen={handleDrawerOpen}
+					handleDrawerClose={handleDrawerClose}
+				/>
+				<main
+					className={clsx(classes.content, {
+						[classes.contentShift]: open,
+					})}
+				>
+					<div className={classes.drawerHeader} />
 					<div className={classes.dashboard}>
 						<Card className={classes.card}>
 							<CardContent>
@@ -94,7 +114,7 @@ export default function DashBoard() {
 									color="textSecondary"
 									gutterBottom
 								>
-									3
+									7
 								</Typography>
 								<Typography variant="h5" component="h2">
 									Total Customers
@@ -105,8 +125,8 @@ export default function DashBoard() {
 							</CardActions>
 						</Card>
 					</div>
-				</Grid>
-			</Grid>
+				</main>
+			</div>
 		</div>
 	);
 }
