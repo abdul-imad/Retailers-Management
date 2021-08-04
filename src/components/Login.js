@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 
 function Login(props) {
+    let {email,password} = props;
+    console.log(email," ",password)
 	let useStyles = makeStyles({
 		centerDiv: {
 			height: "100vh",
@@ -59,9 +61,9 @@ function Login(props) {
 						className={classes.mb}
 						size="small"
 						style={({ display: "block" }, { width: "80%" })}
-						value={props.email}
+						value={email}
 						onChange={(e) => {
-							console.log(e.target.value);
+							props.setEmail(e.target.value)
 						}}
 					/>
 					<TextField
@@ -72,9 +74,10 @@ function Login(props) {
 						className={classes.mb}
 						size="small"
 						style={({ display: "block" }, { width: "80%" })}
-						value={props.password}
+						value={password}
+                        
 						onChange={(e) => {
-							console.log(e.target.value);
+							props.setPassword(e.target.value)
 						}}
 					></TextField>
 					<Link to="/forgetpassword">ForgotPassword</Link>
@@ -83,7 +86,7 @@ function Login(props) {
 						variant="contained"
 						style={{ width: "100%", marginTop: "2rem" }}
 						onClick={(e) => {
-							console.log("Submit");
+							props.handleSubmit()
 						}}
 					>
 						Login
@@ -99,8 +102,18 @@ const mapStateToProps = (store) => {
 	return store;
 };
 
+//setEmail,setPassword,handleSubmit
+
 const mapDispatchToProps = (dispatch) => {
-	return {};
+	return {
+        setEmail:(val)=>{
+            return dispatch({type:"set_email",payload:val})
+        },
+        setPassword:(val)=>{
+            return dispatch({type:"set_password",payload:val})
+        }
+
+    };
 };
 
-export default connect()(Login);
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
