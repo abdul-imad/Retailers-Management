@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Orders() {
+export default function UnpaidOrders() {
     return (
         <div>
-            Orders
+            unpaid orders
         </div>
     )
 }

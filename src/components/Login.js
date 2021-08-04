@@ -73,7 +73,7 @@ function Login(props) {
 						placeholder="Enter password"
 						className={classes.mb}
 						size="small"
-						style={({ display: "block" }, { width: "80%" })}
+						style={{ display: "block", width: "80%" }}
 						value={password}
 						onChange={(e) => {
 							props.setPassword(e.target.value);
