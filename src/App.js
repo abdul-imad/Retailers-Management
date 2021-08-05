@@ -6,7 +6,8 @@ import ForgetPassword from "./components/ForgotPassword";
 import {Provider} from "react-redux"
 function App() {
 	return (
-		<BrowserRouter>
+		<Provider store={} >
+			<BrowserRouter>
 			<Switch>
 				<Route path="/login" component={Login}></Route>
 				<Route path="/forgetpassword" component={ForgetPassword}></Route>
@@ -14,6 +15,7 @@ function App() {
 				<Redirect from="/" to="/dashboard"></Redirect>
 			</Switch>
 		</BrowserRouter>
+		</Provider>
 	);
 }
 
