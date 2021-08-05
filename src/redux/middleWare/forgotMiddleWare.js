@@ -1,16 +1,9 @@
 import auth from "../../firebase/firebaseConfig";
-import store from "../../store";
+import store from "../../app/store";
 export default async function forgotMiddleWare(dispatch){
-    // firebase.auth().sendPasswordResetEmail(
-    //     'user@example.com', actionCodeSettings)
-    //     .then(function() {
-    //       // Password reset email sent.
-    //     })
-    //     .catch(function(error) {
-    //       // Error occurred. Inspect error.code.
-    //     });
+   
 dispatch({type:"set_correct",payload:true})
-    let email = store.getState().forgotemail;
+    let email = store.getState().Forgot.forgotemail;
     auth.sendPasswordResetEmail(email)
     .then(function(){
         dispatch({type:"email_sent"})
