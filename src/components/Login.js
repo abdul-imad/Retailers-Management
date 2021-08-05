@@ -11,10 +11,11 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import loginMiddleWare from "../redux/middleWare/loginMiddleWare";
+
 
 function Login(props) {
 	let { email, password } = props;
-	console.log(email, " ", password);
 	let useStyles = makeStyles({
 		centerDiv: {
 			height: "100vh",
@@ -73,7 +74,7 @@ function Login(props) {
 						placeholder="Enter password"
 						className={classes.mb}
 						size="small"
-						style={({ display: "block" }, { width: "80%" })}
+						style={{ display: "block" , width: "80%" }}
 						value={password}
 						onChange={(e) => {
 							props.setPassword(e.target.value);
@@ -85,7 +86,7 @@ function Login(props) {
 						variant="contained"
 						style={{ width: "100%", marginTop: "2rem" }}
 						onClick={(e) => {
-							props.handleSubmit();
+							props.handleSubmit(e);
 						}}
 					>
 						Login
@@ -98,7 +99,7 @@ function Login(props) {
 }
 
 const mapStateToProps = (store) => {
-	return store;
+	return store.Login;
 };
 
 //setEmail,setPassword,handleSubmit
@@ -111,6 +112,10 @@ const mapDispatchToProps = (dispatch) => {
 		setPassword: (val) => {
 			return dispatch({ type: "set_password", payload: val });
 		},
+        handleSubmit:(e)=>{
+            e.preventDefault();
+            return dispatch(loginMiddleWare)
+        }
 	};
 };
 
