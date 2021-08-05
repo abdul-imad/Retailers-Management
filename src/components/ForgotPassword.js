@@ -67,7 +67,7 @@ function ForgotPassword(props) {
               props.setforgotEmail(e.target.value);
             }}
           />
-		  {isEmailCorrect==false ? <div style = {{color:"red"}}>The Email you entered doesn't match</div>:emailSent==true?
+		  {isEmailCorrect==false ? <div style = {{color:"red"}}>Email you entered doesn't match</div>:emailSent==true?
 			<h2>Email Sent</h2>:null  
 		}
 
