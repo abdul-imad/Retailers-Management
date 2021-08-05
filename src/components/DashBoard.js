@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
 import Sidebar from "./Sidebar";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
 	innerRoot: {
@@ -29,26 +30,14 @@ const useStyles = makeStyles({
 	},
 });
 
-export default function DashBoard() {
+function DashBoard(props) {
+	const { open } = props;
 	const classes = useStyles();
-	const [open, setOpen] = React.useState(false);
-
-	const handleDrawerOpen = () => {
-		setOpen(true);
-	};
-
-	const handleDrawerClose = () => {
-		setOpen(false);
-	};
 
 	return (
 		<div className={classes.root}>
 			<div className={classes.innerRoot}>
-				<Sidebar
-					open={open}
-					handleDrawerOpen={handleDrawerOpen}
-					handleDrawerClose={handleDrawerClose}
-				/>
+				<Sidebar />
 				<main
 					className={clsx(classes.content, {
 						[classes.contentShift]: open,
@@ -130,3 +119,7 @@ export default function DashBoard() {
 		</div>
 	);
 }
+const mapStateToProps = (state) => {
+	return state.Sidebar;
+};
+export default connect(mapStateToProps)(DashBoard);

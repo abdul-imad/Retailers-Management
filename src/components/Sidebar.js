@@ -12,13 +12,13 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import { connect } from "react-redux";
 const useStyles = makeStyles((theme) => ({
 	appBar: {
 		transition: theme.transitions.create(["margin", "width"], {
@@ -71,8 +71,11 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: 240,
 	},
 }));
+
 const drawerWidth = 240;
-export default function Sidebar({ open, handleDrawerOpen, handleDrawerClose }) {
+
+function Sidebar(props) {
+	const { open, handleDrawerClose, handleDrawerOpen } = props;
 	const classes = useStyles();
 	const theme = useTheme();
 	return (
@@ -111,9 +114,9 @@ export default function Sidebar({ open, handleDrawerOpen, handleDrawerClose }) {
 				<div className={classes.drawerHeader}>
 					<IconButton onClick={handleDrawerClose}>
 						{theme.direction === "ltr" ? (
-							<ChevronLeftIcon />
+							<ClearRoundedIcon />
 						) : (
-							<ChevronRightIcon />
+							<ClearRoundedIcon />
 						)}
 					</IconButton>
 				</div>
@@ -159,3 +162,20 @@ export default function Sidebar({ open, handleDrawerOpen, handleDrawerClose }) {
 		</>
 	);
 }
+
+const mapStateToProps = (state) => {
+	return state.Sidebar;
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		handleDrawerOpen: () => {
+			return dispatch({ type: "open_sidebar" });
+		},
+		handleDrawerClose: () => {
+			return dispatch({ type: "close_sidebar" });
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
