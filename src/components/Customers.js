@@ -8,7 +8,7 @@ function Customers(props) {
                     return <div>
                         <ul>
                             <li style={{listStyle:"none"}}>
-                               <div style={{border:"1px solid black"}}>{customer.customerName}</div>
+                               <div>{customer.customerName}</div>
                             </li>
                         </ul>
                     </div>
