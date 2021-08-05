@@ -9,14 +9,9 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 
-function ForgotPassword(props) {
-  let { forgotemail } = props;
-  let { isEmailCorrect, emailSent } = props;
-  console.log(emailSent);
-  let useStyles = makeStyles({
+let useStyles = makeStyles({
     centerDiv: {
       height: "100vh",
       width: "100vw",
@@ -44,6 +39,11 @@ function ForgotPassword(props) {
       backgroundSize: "contain",
     },
   });
+
+function ForgotPassword(props) {
+  let { forgotemail } = props;
+  let { isEmailCorrect, emailSent } = props;
+  console.log(emailSent);
   const classes = useStyles();
 
   return (
@@ -67,9 +67,9 @@ function ForgotPassword(props) {
               props.setforgotEmail(e.target.value);
             }}
           />
-          {isEmailCorrect == false ? (
+          {isEmailCorrect === false ? (
             <div style={{ color: "red" }}>Email you entered doesn't match</div>
-          ) : emailSent == true ? (
+          ) : emailSent === true ? (
             <h2>Email Sent</h2>
           ) : null}
 

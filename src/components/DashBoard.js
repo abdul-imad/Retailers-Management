@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 
 import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
+import auth from "../firebase/firebaseConfig";
 
 const useStyles = makeStyles({
 	innerRoot: {
@@ -32,8 +33,19 @@ const useStyles = makeStyles({
 
 function DashBoard(props) {
 	const { open } = props;
+    const history = useHistory()
+    useEffect(() => {
+		// console.log("use Effect");
+		let resp = auth.onAuthStateChanged((user) => {
+			if (user) {
+				history.push("/")
+			}
+		});
+		return function () {
+			resp();
+		};
+	}, []);
 	const classes = useStyles();
-
 	return (
 		<div className={classes.root}>
 			<div className={classes.innerRoot}>
