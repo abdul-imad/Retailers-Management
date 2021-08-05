@@ -18,6 +18,7 @@ function ForgotPassword(props) {
   console.log(emailSent)
   let useStyles = makeStyles({
     centerDiv: {
+		
       height: "100vh",
       width: "100vw",
       display: "flex",
