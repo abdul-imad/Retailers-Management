@@ -4,7 +4,20 @@ const initialState={
 }
 
 function loginReducer(state = initialState,action){
- return state
+    switch(action.type){
+        case "set_email":
+            return {
+                ...state,
+                email : action.payload
+            }
+        case "set_password":
+            return {
+                ...state,
+                password: action.payload
+            }
+        default:
+            return state
+    }
 }
 
 export default loginReducer;
