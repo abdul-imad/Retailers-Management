@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import { connect } from "react-redux";
 import Sidebar from "./Sidebar";
+import store from "../app/store";
 const useStyles = makeStyles({
 	innerRoot: {
 		flexGrow: 1,
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
 	},
 });
 function Customers(props) {
-	const { open } = props;
+	const { open } = store.getState().Sidebar;
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
@@ -35,19 +36,31 @@ function Customers(props) {
 					})}
 				>
 					<div className={classes.drawerHeader} />
-					<h1>hello</h1>
-					<h1>hello</h1>
-					<h1>hello</h1>
-					<h1>hello</h1>
-					<h1>hello</h1>
-					<h1>hello</h1>
+					<div>
+						{props.customers.map((customer) => {
+							return (
+								<div>
+									<ul>
+										<li style={{ listStyle: "none" }}>
+											<div>{customer.customerName}</div>
+										</li>
+									</ul>
+								</div>
+							);
+						})}
+					</div>
 				</main>
 			</div>
 		</div>
 	);
 }
 
-const mapStateToProps = (state) => {
-	return state.Sidebar;
+const mapStateToProps = (store) => {
+	return store.Customers;
 };
-export default connect(mapStateToProps)(Customers);
+
+const mapDispatchToProps = (dispatch) => {
+	return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Customers);
