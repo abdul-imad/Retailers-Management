@@ -9,7 +9,7 @@ import Orders from "./components/Orders";
 import Customers from "./components/Customers";
 import Brands from "./components/Brands";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./app/store";
 function App() {
 	return (
 		<Provider store={store}>

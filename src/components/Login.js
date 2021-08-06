@@ -23,6 +23,7 @@ function Login(props) {
 			display: "flex",
 			justifyContent: "center",
 			alignItems: "center",
+			backgroundColor:"rgb(250,250,250)"
 		},
 		card: {
 			height: "20rem",
