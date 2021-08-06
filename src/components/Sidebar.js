@@ -13,12 +13,14 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
+import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { connect } from "react-redux";
+import { Button } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
 	appBar: {
 		transition: theme.transitions.create(["margin", "width"], {
@@ -70,6 +72,11 @@ const useStyles = makeStyles((theme) => ({
 		}),
 		marginLeft: 240,
 	},
+	logoutBtn: {
+		position: "absolute",
+		right: "10px",
+		color: "#fff",
+	},
 }));
 
 const drawerWidth = 240;
@@ -100,6 +107,12 @@ function Sidebar(props) {
 					<Typography variant="h6" noWrap>
 						Admin
 					</Typography>
+					<Typography variant="h6" noWrap className={classes.logoutBtn}>
+						<Button variant="contained" color="primary">
+							<ExitToAppRoundedIcon />
+							Logout
+						</Button>
+					</Typography>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -122,7 +135,7 @@ function Sidebar(props) {
 				</div>
 				<Divider />
 				<List>
-					<Link to="/dashboard">
+					<Link to="/">
 						<ListItem button>
 							<ListItemIcon>
 								<InboxIcon />
