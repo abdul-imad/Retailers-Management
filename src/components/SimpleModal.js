@@ -2,10 +2,6 @@ import React from 'react';
 import store from '../app/store';
 import { Button, Modal, TextField } from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles"
-/* cName={cName}
-            cPhone={cPhone}
-            
-             */
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
