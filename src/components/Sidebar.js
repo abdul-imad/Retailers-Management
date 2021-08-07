@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerPaper: {
 		width: drawerWidth,
+		boxShadow: "1px 1px 7px 3px #ddd",
 	},
 	drawerHeader: {
 		display: "flex",
@@ -172,7 +173,7 @@ function Sidebar(props) {
 							<ListItemText primary="Orders" />
 						</ListItem>
 					</Link>
-				
+
 					<Link to="/brands" onClick={handleDrawerClose}>
 						<ListItem button>
 							<ListItemIcon>
