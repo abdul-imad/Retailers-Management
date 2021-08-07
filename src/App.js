@@ -9,6 +9,7 @@ import Orders from "./components/Orders";
 import Customers from "./components/Customers";
 import Items from "./components/Items";
 import { AuthContext, AuthProvider } from "./auth/AuthProvider";
+import EachCustomer from "./components/EachCustomer";
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 					<PrivateRoute path="/orders/unpaid" abc={UnpaidOrders} />
 					<PrivateRoute path="/orders" exact abc={Orders} />
 					<PrivateRoute path="/customers" abc={Customers} />
+					<PrivateRoute path="/eachcustomer" abc={EachCustomer} />
 					<PrivateRoute path="/items" abc={Items} />
 				</Switch>
 			</AuthProvider>
