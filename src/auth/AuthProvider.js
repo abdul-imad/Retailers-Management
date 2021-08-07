@@ -17,7 +17,6 @@ export function AuthProvider({ children }) {
 
 	useEffect(() => {
 		let resp = auth.onAuthStateChanged((user) => {
-			console.log("Auto Login", user);
 			setUser(user);
 			setLoader(false);
 		});

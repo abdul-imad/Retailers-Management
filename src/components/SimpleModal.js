@@ -2,6 +2,7 @@ import React from "react";
 import store from "../app/store";
 import { Button, Modal, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useEffect } from "react";
 
 function rand() {
 	return Math.round(Math.random() * 20) - 10;
@@ -53,11 +54,21 @@ function SimpleModal(props) {
 		setOpen(false);
 	};
 
+	useEffect(() => {
+		if (document.querySelector(".inputField") !== null) {
+			document.querySelector(".inputField").click();
+            console.log("object");
+		}
+        console.log("object");
+
+	}, [open]);
+
 	const body = (
 		<div style={modalStyle} className={classes.paper}>
 			<div>
 				<TextField
 					value={cName}
+					className="inputField"
 					fullWidth={true}
 					label="Customer Name"
 					placeholder="Name"

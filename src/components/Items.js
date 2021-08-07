@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 		display: "flex",
 	},
 });
-function Orders() {
+function Items() {
 	const { open } = store.getState().Sidebar;
 	const classes = useStyles();
 
@@ -27,7 +27,7 @@ function Orders() {
 				>
 					<div className={classes.drawerHeader} />
 					<div style={{ marginTop: "6rem" }}>
-						<h1>Orders</h1>
+						<h1>Items</h1> 
 					</div>
 				</main>
 			</div>
@@ -35,4 +35,4 @@ function Orders() {
 	);
 }
 
-export default Orders;
+export default Items;
