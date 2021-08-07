@@ -24,12 +24,18 @@ const useStyles = makeStyles({
 	unpaid: {
 		color: "red",
 	},
+	row:{
+		"&:hover":{
+
+			backgroundColor:"rgb(250,250,250)",
+			cursor:"pointer"
+		}
+	}
 });
 
 export default function BasicTable() {
 	const classes = useStyles();
 	const customersToShow = store.getState().Customers.customers;
-	console.log(customersToShow);
 	return (
 		<TableContainer
 			style={{ marginTop: "3rem", width: "800px" }}
@@ -39,11 +45,11 @@ export default function BasicTable() {
 				<TableHead>
 					<TableRow>
 						<TableCell className={classes.header}>Customer Name</TableCell>
-						<TableCell className={[classes.header, classes.paid]} align="right">
+						<TableCell className={`${classes.header} ${classes.paid}`} align="right">
 							Paid
 						</TableCell>
 						<TableCell
-							className={[classes.header, classes.unpaid]}
+							className={`${classes.header} ${classes.unpaid}`}
 							align="right"
 						>
 							Unpaid
@@ -52,17 +58,21 @@ export default function BasicTable() {
 						<TableCell className={classes.header} align="right">
 							Total Amount
 						</TableCell>
+						<TableCell className={classes.header} align="right">
+							Phone
+						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{customersToShow.map((customer) => (
-						<TableRow key={customer.cName}>
+					{customersToShow.map((customer,idx) => (
+						<TableRow key={idx} className = {classes.row} onClick={(e)=>console.log(e.target.parentNode.children[0].innerText)} >
 							<TableCell component="th" scope="row">
 								{customer.cName}
 							</TableCell>
-							<TableCell align="right">{customer.Paid}</TableCell>
-							<TableCell align="right">{customer.Unpaid}</TableCell>
+							<TableCell className = {classes.paid} align="right">{customer.Paid}</TableCell>
+							<TableCell className = {classes.unpaid} align="right">{customer.Unpaid}</TableCell>
 							<TableCell align="right">{customer.TotalAmount}</TableCell>
+							<TableCell align="right">{customer.cPhone}</TableCell>
 						</TableRow>
 					))}
 				</TableBody>

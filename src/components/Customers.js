@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 function Customers(props) {
 	const { open } = store.getState().Sidebar;
 	const classes = useStyles();
-	const { cName, cPhone } = props;
+	const { cName, cPhone, searchValue } = props;
 	const [loader, setLoader] = useState(false);
 
 	useEffect(() => {
@@ -47,8 +47,10 @@ function Customers(props) {
 				customerArr.push(doc.data());
 			});
 
-			props.setCustomers([...customerArr]);
-			console.log("In useEffect");
+			props.setAllCustomers([...customerArr]);
+		if(searchValue==""){
+			props.setCustomers([...customerArr])
+			}
 		})();
 	}, []);
 
@@ -75,7 +77,25 @@ function Customers(props) {
 			setLoader(false);
 		}
 	};
-	console.log(props.customers.length);
+
+	const handleSearch=(val)=>{
+		props.setSearchValue(val);
+		
+		let searchedCustomers = props.allCustomers.filter(customer=>{
+			return customer.cName.toLowerCase().includes(val.toLowerCase());
+		})
+		props.setCustomers(searchedCustomers)
+	}
+
+	// if(searchValue==""){
+	// 	props.setCustomers([...props.allCustomers])
+	// }else{
+	// 	let searchedCustomers=props.allCustomers.map((customer)=>{
+	// 		return customer.cName.contains(searchValue)
+	// 	})
+	// 	props.setCustomers(searchedCustomers)
+
+	// }
 
 	return (
 		<div className={classes.root}>
@@ -92,6 +112,8 @@ function Customers(props) {
 							variant="contained"
 							color="secondary"
 							placeholder="Search Customer"
+							value={searchValue}
+							onChange={(e)=>handleSearch(e.target.value)}
 						></Input>
 						<BasicTable></BasicTable>
 					</div>
@@ -128,6 +150,12 @@ const mapDispatchToProps = (dispatch) => {
 		setCustomers: (cust) => {
 			return dispatch({ type: "set_customers", payload: [...cust] });
 		},
+		setAllCustomers: (cust) => {
+			return dispatch({ type: "set_all_customers", payload: [...cust] });
+		},
+		setSearchValue:(val)=>{
+			return dispatch({type:"set_search_value",payload:val})
+		}
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Customers);
