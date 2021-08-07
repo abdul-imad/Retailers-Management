@@ -48,8 +48,8 @@ function Customers(props) {
 			});
 
 			props.setAllCustomers([...customerArr]);
-		if(searchValue==""){
-			props.setCustomers([...customerArr])
+			if (searchValue == "") {
+				props.setCustomers([...customerArr]);
 			}
 		})();
 	}, []);
@@ -78,14 +78,14 @@ function Customers(props) {
 		}
 	};
 
-	const handleSearch=(val)=>{
+	const handleSearch = (val) => {
 		props.setSearchValue(val);
-		
-		let searchedCustomers = props.allCustomers.filter(customer=>{
+
+		let searchedCustomers = props.allCustomers.filter((customer) => {
 			return customer.cName.toLowerCase().includes(val.toLowerCase());
-		})
-		props.setCustomers(searchedCustomers)
-	}
+		});
+		props.setCustomers(searchedCustomers);
+	};
 
 	// if(searchValue==""){
 	// 	props.setCustomers([...props.allCustomers])
@@ -113,7 +113,7 @@ function Customers(props) {
 							color="secondary"
 							placeholder="Search Customer"
 							value={searchValue}
-							onChange={(e)=>handleSearch(e.target.value)}
+							onChange={(e) => handleSearch(e.target.value)}
 						></Input>
 						<BasicTable></BasicTable>
 					</div>
@@ -153,9 +153,9 @@ const mapDispatchToProps = (dispatch) => {
 		setAllCustomers: (cust) => {
 			return dispatch({ type: "set_all_customers", payload: [...cust] });
 		},
-		setSearchValue:(val)=>{
-			return dispatch({type:"set_search_value",payload:val})
-		}
+		setSearchValue: (val) => {
+			return dispatch({ type: "set_search_value", payload: val });
+		},
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Customers);

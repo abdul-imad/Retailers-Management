@@ -58,7 +58,7 @@ export default function Login(props) {
 		} catch (err) {
 			console.log(err);
 			setLoader(false);
-            alert("ERROR!! Enter valid email and password")
+			alert("ERROR!! Enter valid email and password");
 			setEmail("");
 			setPassword("");
 		}
@@ -110,7 +110,7 @@ export default function Login(props) {
 					<Button
 						color="primary"
 						variant="contained"
-                        disabled={loading}
+						disabled={loading}
 						style={{ width: "100%", marginTop: "2rem" }}
 						onClick={handleSubmit}
 					>
