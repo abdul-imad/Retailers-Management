@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import store from "../app/store";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
 	table: {
@@ -36,6 +37,11 @@ const useStyles = makeStyles({
 export default function BasicTable() {
 	const classes = useStyles();
 	const customersToShow = store.getState().Customers.customers;
+const history = useHistory()
+	const showCustomers=(e)=>{
+history.push("/eachcustomer")
+	}
+
 	return (
 		<TableContainer
 			style={{ marginTop: "3rem", width: "800px" }}
@@ -65,7 +71,7 @@ export default function BasicTable() {
 				</TableHead>
 				<TableBody>
 					{customersToShow.map((customer,idx) => (
-						<TableRow key={idx} className = {classes.row} onClick={(e)=>console.log(e.target.parentNode.children[0].innerText)} >
+						<TableRow key={idx} className = {classes.row} onClick={(e)=>showCustomers(e)} >
 							<TableCell component="th" scope="row">
 								{customer.cName}
 							</TableCell>

@@ -72,6 +72,7 @@ function SimpleModal(props) {
 					fullWidth={true}
 					label="Customer Name"
 					placeholder="Name"
+					required={true}
 					onChange={(e) => setCName(e.target.value)}
 				></TextField>
 			</div>
@@ -80,6 +81,8 @@ function SimpleModal(props) {
 					fullWidth={true}
 					value={cPhone}
 					label="Phone Number"
+					type="tel"
+					required={true}
 					placeholder="must contain atleast 10 digits"
 					onChange={(e) => setCPhone(e.target.value)}
 				></TextField>
