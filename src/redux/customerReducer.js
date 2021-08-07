@@ -2,7 +2,8 @@ const initialState={
     allCustomers:[],
     customers:[],
     cName:"",
-    cPhone:""
+    cPhone:"",
+    searchValue:""
 }
 
 export default function customerReducer(state = initialState,action){
@@ -21,6 +22,16 @@ export default function customerReducer(state = initialState,action){
             return{
                 ...state,
                 customers:[...action.payload]
+            }
+            case "set_all_customers":
+                return{
+                    ...state,
+                    allCustomers:[...action.payload]
+                }
+        case "set_search_value":
+            return{
+                ...state,
+                searchValue:action.payload
             }
         default:
             return state
