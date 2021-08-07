@@ -58,6 +58,7 @@ export default function Login(props) {
 		} catch (err) {
 			console.log(err);
 			setLoader(false);
+            alert("ERROR!! Enter valid email and password")
 			setEmail("");
 			setPassword("");
 		}
