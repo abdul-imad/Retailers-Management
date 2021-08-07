@@ -174,12 +174,12 @@ function Sidebar(props) {
 						</ListItem>
 					</Link>
 
-					<Link to="/brands" onClick={handleDrawerClose}>
+					<Link to="/Items" onClick={handleDrawerClose}>
 						<ListItem button>
 							<ListItemIcon>
 								<MailIcon />
 							</ListItemIcon>
-							<ListItemText primary="Brands" />
+							<ListItemText primary="Items" />
 						</ListItem>
 					</Link>
 				</List>
