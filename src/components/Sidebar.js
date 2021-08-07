@@ -21,6 +21,8 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
+import { useContext } from "react";
+import { AuthContext } from "../auth/AuthProvider";
 const useStyles = makeStyles((theme) => ({
 	appBar: {
 		transition: theme.transitions.create(["margin", "width"], {
@@ -83,6 +85,12 @@ const drawerWidth = 240;
 
 function Sidebar(props) {
 	const { open, handleDrawerClose, handleDrawerOpen } = props;
+	const { signOut } = useContext(AuthContext);
+
+	const handleLogout = async () => {
+		await signOut();
+	};
+
 	const classes = useStyles();
 	const theme = useTheme();
 	return (
@@ -107,7 +115,12 @@ function Sidebar(props) {
 					<Typography variant="h6" noWrap>
 						Admin
 					</Typography>
-					<Typography variant="h6" noWrap className={classes.logoutBtn}>
+					<Typography
+						variant="h6"
+						noWrap
+						className={classes.logoutBtn}
+						onClick={handleLogout}
+					>
 						<Button variant="contained" color="primary">
 							<ExitToAppRoundedIcon />
 							Logout
@@ -135,7 +148,7 @@ function Sidebar(props) {
 				</div>
 				<Divider />
 				<List>
-					<Link to="/">
+					<Link to="/" onClick={handleDrawerClose}>
 						<ListItem button>
 							<ListItemIcon>
 								<InboxIcon />
@@ -143,7 +156,7 @@ function Sidebar(props) {
 							<ListItemText primary="Dashboard" />
 						</ListItem>
 					</Link>
-					<Link to="/customers">
+					<Link to="/customers" onClick={handleDrawerClose}>
 						<ListItem button>
 							<ListItemIcon>
 								<MailIcon />
@@ -151,7 +164,7 @@ function Sidebar(props) {
 							<ListItemText primary="Customers" />
 						</ListItem>
 					</Link>
-					<Link to="/orders">
+					<Link to="/orders" onClick={handleDrawerClose}>
 						<ListItem button>
 							<ListItemIcon>
 								<MailIcon />
@@ -159,10 +172,8 @@ function Sidebar(props) {
 							<ListItemText primary="Orders" />
 						</ListItem>
 					</Link>
-				</List>
-				<Divider />
-				<List>
-					<Link to="/brands">
+				
+					<Link to="/brands" onClick={handleDrawerClose}>
 						<ListItem button>
 							<ListItemIcon>
 								<MailIcon />

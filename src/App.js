@@ -31,7 +31,6 @@ function App() {
 
 function PrivateRoute(parentProps) {
 	let { currentUser } = useContext(AuthContext);
-	console.log(currentUser);
 	const Component = parentProps.abc;
 	return (
 		<Route

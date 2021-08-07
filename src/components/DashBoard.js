@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 		margin: "10px",
 	},
 	dashboard: {
-		marginTop: "80px",
+		marginTop: "6rem",
 		display: "flex",
 	},
 	title: {
