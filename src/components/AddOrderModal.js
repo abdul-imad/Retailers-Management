@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import store from "../app/store";
 import { Button, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -19,7 +18,6 @@ function getModalStyle() {
 }
 
 function AddOrderModal(props) {
-	const { cPhone, cName } = store.getState().Customers;
 
 	const useStyles = makeStyles((theme) => ({
 		paper: {
@@ -41,7 +39,7 @@ function AddOrderModal(props) {
 	// getModalStyle is not a pure function, we roll the style only on the first render
 	const [modalStyle] = React.useState(getModalStyle);
 	const [open, setOpen] = React.useState(false);
-	const { loader, setCName, setCPhone } = props;
+	const { loader } = props;
 	const [items, setItems] = useState([]);
 	const [totalAmount] = useState("");
 	const handleOpen = () => {
@@ -107,7 +105,7 @@ function AddOrderModal(props) {
 
 export default AddOrderModal;
 
-function Input(props) {
+function Input() {
 	const [item, setItem] = useState("");
 	const [quantity, setQuantity] = useState(0);
 	const [price, setPrice] = useState(0);

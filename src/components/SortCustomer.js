@@ -35,7 +35,7 @@ export default function SimpleSelect(props) {
 					onChange={handleChange}
 				>
 					<MenuItem value="">
-						<em>None</em>
+						<em>none</em>
 					</MenuItem>
 					<MenuItem value={2}>Highest First</MenuItem>
 					<MenuItem value={1}>Lowest First</MenuItem>

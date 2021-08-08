@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { connect } from "react-redux";
 import Sidebar from "./Sidebar";
 import store from "../app/store";
-import { db } from "../firebase/firebaseConfig";
+import { database, db } from "../firebase/firebaseConfig";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import BasicTable from "./Table";
@@ -33,11 +33,14 @@ const useStyles = makeStyles({
 	root: {
 		display: "flex",
 	},
-	searchInput: {
+	filter: {
 		display: "flex",
-		margin: "0 auto 50px auto",
+		alignItems: "center",
+		justifyContent: "space-evenly",
+		marginBottom: "50px",
 	},
 });
+
 function Customers(props) {
 	const { open } = store.getState().Sidebar;
 	const classes = useStyles();
@@ -46,16 +49,20 @@ function Customers(props) {
 
 	useEffect(() => {
 		(async () => {
-			let customers = await db.collection("customers").get();
 			let customerArr = [];
-			customers.forEach((doc) => {
-				customerArr.push(doc.data());
-			});
+			let unsub = await db
+				.collection("customers")
+				.orderBy("createdAt", "desc")
+				.onSnapshot(async (snapshot) => {
+					customerArr = snapshot.docs.map((doc) => doc.data());
+					console.log(customerArr);
 
-			props.setAllCustomers([...customerArr]);
-			if (searchValue === "") {
-				props.setCustomers([...customerArr]);
-			}
+					props.setAllCustomers([...customerArr]);
+					if (searchValue === "") {
+						props.setCustomers([...customerArr]);
+					}
+				});
+			return unsub;
 		})();
 	}, []);
 
@@ -72,11 +79,12 @@ function Customers(props) {
 				Paid: 0,
 				Unpaid: 0,
 				orders: [],
+				createdAt: database.getTimeStamp(),
 			};
 
 			db.collection("customers").doc().set(obj);
 			setLoader(false);
-			props.history.push("/orders");
+			props.setOpen(false);
 		} catch (err) {
 			console.log(err);
 			setLoader(false);
@@ -100,7 +108,7 @@ function Customers(props) {
 		if (e.target.value !== "") {
 			let customersTobeSorted = [...props.customers];
 			let sortedCustomers = customersTobeSorted.sort((customer1, customer2) => {
-				if (e.target.value == 1) {
+				if (e.target.value === 1) {
 					return customer1.Unpaid - customer2.Unpaid;
 				} else {
 					return customer2.Unpaid - customer1.Unpaid;
@@ -130,24 +138,27 @@ function Customers(props) {
 							flexDirection: "column",
 						}}
 					>
-						<Input
-							className={classes.searchInput}
-							variant="contained"
-							color="secondary"
-							placeholder="Search Customer"
-							value={searchValue}
-							onChange={(e) => handleSearch(e.target.value)}
-						></Input>
+						<div className={classes.filter}>
+							<Input
+								variant="contained"
+								color="secondary"
+								placeholder="Search Customer"
+								value={searchValue}
+								onChange={(e) => handleSearch(e.target.value)}
+							></Input>
 
-						<SimpleSelect handleSortBy={handleSortBy}></SimpleSelect>
+							<SimpleSelect handleSortBy={handleSortBy} />
+						</div>
 
-						<BasicTable></BasicTable>
+						<BasicTable />
 					</div>
 					<SimpleModal
 						addCustomers={addCustomers}
 						loader={loader}
 						setCName={props.setCName}
 						setCPhone={props.setCPhone}
+						open={props.open}
+						setOpen={props.setOpen}
 					></SimpleModal>
 				</main>
 			</div>
@@ -184,6 +195,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setSortBy: (val) => {
 			return dispatch({ type: "set_sortBy", payload: val });
+		},
+		setOpen: (flag) => {
+			return dispatch({ type: "set_open", payload: flag });
 		},
 	};
 };
