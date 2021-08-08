@@ -41,8 +41,10 @@ const history = useHistory()
 	const showCustomers=(e)=>{
 history.push("/eachcustomer")
 	}
+	let length = customersToShow.length
 
 	return (
+		
 		<TableContainer
 			style={{ marginTop: "3rem", width: "800px" }}
 			component={Paper}
@@ -69,7 +71,9 @@ history.push("/eachcustomer")
 						</TableCell>
 					</TableRow>
 				</TableHead>
-				<TableBody>
+				{
+					length==0?<h3 style={{textAlign:"center",color:"red"}}>No Customers Found</h3>:
+					<TableBody>
 					{customersToShow.map((customer,idx) => (
 						<TableRow key={idx} className = {classes.row} onClick={(e)=>showCustomers(e)} >
 							<TableCell component="th" scope="row">
@@ -82,6 +86,7 @@ history.push("/eachcustomer")
 						</TableRow>
 					))}
 				</TableBody>
+				}
 			</Table>
 		</TableContainer>
 	);
