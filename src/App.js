@@ -9,6 +9,7 @@ import Orders from "./components/Orders";
 import Customers from "./components/Customers";
 import Brands from "./components/Brands";
 import { AuthContext, AuthProvider } from "./auth/AuthProvider";
+import EachCustomer from "./components/EachCustomer";
 
 function App() {
 	return (
@@ -23,6 +24,7 @@ function App() {
 					<PrivateRoute path="/orders" exact abc={Orders} />
 					<PrivateRoute path="/customers" abc={Customers} />
 					<PrivateRoute path="/brands" abc={Brands} />
+					<PrivateRoute path="/eachcustomer" abc={EachCustomer} />
 				</Switch>
 			</AuthProvider>
 		</BrowserRouter>
