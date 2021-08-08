@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import store from "../app/store";
-import { Button, Modal, TextField } from "@material-ui/core";
+import { Button, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 function rand() {
@@ -35,7 +35,6 @@ function AddOrderModal(props) {
 		button: {
 			backgroundColor: "#f44336",
 			height: "2rem",
-			
 		},
 	}));
 	const classes = useStyles();
@@ -43,8 +42,8 @@ function AddOrderModal(props) {
 	const [modalStyle] = React.useState(getModalStyle);
 	const [open, setOpen] = React.useState(false);
 	const { loader, setCName, setCPhone } = props;
-    const [items,setItems] = useState([])
-    const [totalAmount] = useState("")
+	const [items, setItems] = useState([]);
+	const [totalAmount] = useState("");
 	const handleOpen = () => {
 		setOpen(true);
 	};
@@ -52,44 +51,38 @@ function AddOrderModal(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
-   const handleAddItems=()=>{
-        setItems([...items,<Input></Input>])
-   }
+	const handleAddItems = () => {
+		setItems([...items, <Input></Input>]);
+	};
 
 	const body = (
 		<div style={modalStyle} className={classes.paper}>
-		
 			<div style={{ textAlign: "center", paddingTop: "3rem" }}>
-                <div>
-                    {items.map((item,idx)=>{
-                        return (
-                            <div key={idx}>
-                                {item}
-                            </div>
-
-                        )
-                    })}
-                </div>
-            <Button
-            variant="contained"
-            color="secondary"
-            onClick={()=>handleAddItems()}
-            >
-                Add Item
-            </Button>
-            <br></br>
+				<div>
+					{items.map((item, idx) => {
+						return <div key={idx}>{item}</div>;
+					})}
+				</div>
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={() => handleAddItems()}
+				>
+					Add Item
+				</Button>
+				<br></br>
 				<Button
 					variant="contained"
 					disabled={loader}
 					color="secondary"
-                    style={{marginTop:"2rem"}}
+					style={{ marginTop: "2rem" }}
 					onClick={(e) => {
-						console.log("Making an order")
+						console.log("Making an order");
 					}}
 				>
 					Complete
 				</Button>
-                <input placeholder="Total amount" value={totalAmount} ></input>
+				<input placeholder="Total amount" value={totalAmount}></input>
 			</div>
 		</div>
 	);
@@ -99,7 +92,7 @@ function AddOrderModal(props) {
 			<button className={classes.button} style={{}} onClick={handleOpen}>
 				Make an Order
 			</button>
-            
+
 			<Modal
 				open={open}
 				onClose={handleClose}
@@ -114,31 +107,38 @@ function AddOrderModal(props) {
 
 export default AddOrderModal;
 
-
 function Input(props) {
-    const [item,setItem] = useState("")
-    const [quantity,setQuantity] = useState(0);
-    const [price,setPrice] = useState(0);
-    const [amount,setAmount] = useState(quantity*price);
-    console.log(quantity,price,amount);
-    return (
-        <div>
-            <input placeholder="item" value={item} onChange={(e)=>setItem(e.target.value)}>
-            </input>
-            <input placeholder="quantity" value={quantity}
-             onChange={(e)=>{
-                setQuantity(e.target.value)
-                let temp = e.target.value*price
-                setAmount(temp)
-            }}></input>
-            <input placeholder="price" value={price} 
-            onChange={(e)=>{
-                setPrice(e.target.value)
-                let temp = quantity*e.target.value
-                setAmount(temp)
-            }}></input>
-            <input placeholder="amount" value = {amount}  disabled={true} ></input>
-        </div>
-    );
+	const [item, setItem] = useState("");
+	const [quantity, setQuantity] = useState(0);
+	const [price, setPrice] = useState(0);
+	const [amount, setAmount] = useState(quantity * price);
+	console.log(quantity, price, amount);
+	return (
+		<div>
+			<input
+				placeholder="item"
+				value={item}
+				onChange={(e) => setItem(e.target.value)}
+			></input>
+			<input
+				placeholder="quantity"
+				value={quantity}
+				onChange={(e) => {
+					setQuantity(e.target.value);
+					let temp = e.target.value * price;
+					setAmount(temp);
+				}}
+			></input>
+			<input
+				placeholder="price"
+				value={price}
+				onChange={(e) => {
+					setPrice(e.target.value);
+					let temp = quantity * e.target.value;
+					setAmount(temp);
+				}}
+			></input>
+			<input placeholder="amount" value={amount} disabled={true}></input>
+		</div>
+	);
 }
-

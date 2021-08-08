@@ -50,8 +50,8 @@ function Customers(props) {
 			});
 
 			props.setAllCustomers([...customerArr]);
-		if(searchValue==""){
-			props.setCustomers([...customerArr])
+			if (searchValue == "") {
+				props.setCustomers([...customerArr]);
 			}
 		})();
 	}, []);
@@ -80,14 +80,14 @@ function Customers(props) {
 		}
 	};
 
-	const handleSearch=(val)=>{
+	const handleSearch = (val) => {
 		props.setSearchValue(val);
-		
-		let searchedCustomers = props.allCustomers.filter(customer=>{
+
+		let searchedCustomers = props.allCustomers.filter((customer) => {
 			return customer.cName.toLowerCase().includes(val.toLowerCase());
-		})
-		props.setCustomers(searchedCustomers)
-	}
+		});
+		props.setCustomers(searchedCustomers);
+	};
 
 	const handleSortBy=(e)=>{
 		props.setSortBy(e.target.value);
@@ -136,8 +136,7 @@ function Customers(props) {
 						<SimpleSelect
 							handleSortBy = {handleSortBy}
 						></SimpleSelect>
-						
-						
+
 						<BasicTable></BasicTable>
 					</div>
 					<SimpleModal
@@ -182,6 +181,7 @@ const mapDispatchToProps = (dispatch) => {
 		setSortBy:(val)=>{
 			return dispatch({type:"set_sortBy",payload:val})
 		}
+
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Customers);

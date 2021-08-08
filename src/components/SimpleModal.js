@@ -57,10 +57,9 @@ function SimpleModal(props) {
 	useEffect(() => {
 		if (document.querySelector(".inputField") !== null) {
 			document.querySelector(".inputField").click();
-            console.log("object");
+			console.log("object");
 		}
-        console.log("object");
-
+		console.log("object");
 	}, [open]);
 
 	const body = (

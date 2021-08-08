@@ -27,7 +27,7 @@ function Items() {
 				>
 					<div className={classes.drawerHeader} />
 					<div style={{ marginTop: "6rem" }}>
-						<h1>Items</h1> 
+						<h1>Items</h1>
 					</div>
 				</main>
 			</div>
