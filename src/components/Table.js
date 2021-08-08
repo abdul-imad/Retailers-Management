@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,7 +9,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import store from "../app/store";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
 	tableContainer: {
@@ -82,9 +82,11 @@ export default function BasicTable() {
 							className={classes.row}
 							onClick={(e) => showCustomers(customer.cid)}
 						>
-							<TableCell component="th" scope="row">
-								{customer.data.cName}
-							</TableCell>
+							<Link>
+								<TableCell component="th" scope="row">
+									{customer.data.cName}
+								</TableCell>
+							</Link>
 							<TableCell className={classes.paid} align="right">
 								{customer.data.Paid}
 							</TableCell>
