@@ -45,16 +45,6 @@ function AddOrderModal(props) {
 		></Inputs>]);
 	};
 
-	// useEffect(()=>{
-	// 	let sum = 0;
-	// 	console.log("start")
-	// 	for(let i = 0; i < items.length; i++){
-	// 		console.log(items[i])
-	// 	}
-	// 	console.log(sum);
-	// 	setTotalAmount(sum)
-	// },[items])
-
 	const body = (
 		<div className={classes.paper}>
 			<Button

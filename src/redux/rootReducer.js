@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
 	Customers: customerReducer,
 	EachCustomer: eachCustomerReducer,
 	Orders: orderReducer,
-	AddOrders:addOrderReducer
+	AddOrders: addOrderReducer,
 });
 
 export default rootReducer;
