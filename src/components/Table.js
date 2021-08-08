@@ -11,9 +11,14 @@ import store from "../app/store";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
+	tableContainer: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+	},
 	table: {
 		minWidth: 500,
-		maxWidth: 800,
+		maxWidth: 900,
 	},
 	header: {
 		color: "black",
@@ -25,35 +30,34 @@ const useStyles = makeStyles({
 	unpaid: {
 		color: "red",
 	},
-	row:{
-		"&:hover":{
-
-			backgroundColor:"rgb(250,250,250)",
-			cursor:"pointer"
-		}
-	}
+	row: {
+		"&:hover": {
+			backgroundColor: "rgb(250,250,250)",
+			cursor: "pointer",
+		},
+	},
 });
 
 export default function BasicTable() {
 	const classes = useStyles();
 	const customersToShow = store.getState().Customers.customers;
-const history = useHistory()
-	const showCustomers=(e)=>{
-history.push("/eachcustomer")
-	}
+
+	const history = useHistory();
+	const showCustomers = (e) => {
+		history.push("/eachcustomer");
+	};
 	let length = customersToShow.length
 
 	return (
-		
-		<TableContainer
-			style={{ marginTop: "3rem", width: "800px" }}
-			component={Paper}
-		>
+		<TableContainer component={Paper} className={classes.tableContainer}>
 			<Table className={classes.table} aria-label="simple table">
 				<TableHead>
 					<TableRow>
 						<TableCell className={classes.header}>Customer Name</TableCell>
-						<TableCell className={`${classes.header} ${classes.paid}`} align="right">
+						<TableCell
+							className={`${classes.header} ${classes.paid}`}
+							align="right"
+						>
 							Paid
 						</TableCell>
 						<TableCell
@@ -79,8 +83,12 @@ history.push("/eachcustomer")
 							<TableCell component="th" scope="row">
 								{customer.cName}
 							</TableCell>
-							<TableCell className = {classes.paid} align="right">{customer.Paid}</TableCell>
-							<TableCell className = {classes.unpaid} align="right">{customer.Unpaid}</TableCell>
+							<TableCell className={classes.paid} align="right">
+								{customer.Paid}
+							</TableCell>
+							<TableCell className={classes.unpaid} align="right">
+								{customer.Unpaid}
+							</TableCell>
 							<TableCell align="right">{customer.TotalAmount}</TableCell>
 							<TableCell align="right">{customer.cPhone}</TableCell>
 						</TableRow>

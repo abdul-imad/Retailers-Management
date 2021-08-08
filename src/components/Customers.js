@@ -33,7 +33,10 @@ const useStyles = makeStyles({
 	root: {
 		display: "flex",
 	},
-	
+	searchInput: {
+		display: "flex",
+		margin: "0 auto 50px auto",
+	},
 });
 function Customers(props) {
 	const { open } = store.getState().Sidebar;
@@ -50,8 +53,8 @@ function Customers(props) {
 			});
 
 			props.setAllCustomers([...customerArr]);
-		if(searchValue==""){
-			props.setCustomers([...customerArr])
+			if (searchValue === "") {
+				props.setCustomers([...customerArr]);
 			}
 		})();
 	}, []);
@@ -80,38 +83,36 @@ function Customers(props) {
 		}
 	};
 
-	const handleSearch=(val)=>{
+	const handleSearch = (val) => {
 		props.setSearchValue(val);
-		
-		let searchedCustomers = props.allCustomers.filter(customer=>{
-			return customer.cName.toLowerCase().includes(val.toLowerCase());
-		})
-		props.setCustomers(searchedCustomers)
-	}
 
-	const handleSortBy=(e)=>{
+		let searchedCustomers = props.allCustomers.filter((customer) => {
+			return customer.cName.toLowerCase().includes(val.toLowerCase());
+		});
+		props.setCustomers(searchedCustomers);
+	};
+
+	const handleSortBy = (e) => {
 		props.setSortBy(e.target.value);
 
 		console.log(e.target.value);
 
-		if(e.target.value !== ""){
-			let customersTobeSorted = [...props.customers]
-			let sortedCustomers = customersTobeSorted.sort((customer1,customer2)=>{
-				if(e.target.value==1){
-					return customer1.Unpaid - customer2.Unpaid
-				}else{
-					return customer2.Unpaid - customer1.Unpaid
+		if (e.target.value !== "") {
+			let customersTobeSorted = [...props.customers];
+			let sortedCustomers = customersTobeSorted.sort((customer1, customer2) => {
+				if (e.target.value == 1) {
+					return customer1.Unpaid - customer2.Unpaid;
+				} else {
+					return customer2.Unpaid - customer1.Unpaid;
 				}
 			});
-			props.setCustomers(sortedCustomers)
-			console.log("sorting ",sortedCustomers)
-		}else{
-			handleSearch(props.searchValue)
+			props.setCustomers(sortedCustomers);
+			console.log("sorting ", sortedCustomers);
+		} else {
+			handleSearch(props.searchValue);
 		}
+	};
 
-	}
-
-	
 	return (
 		<div className={classes.root}>
 			<div className={classes.innerRoot}>
@@ -122,22 +123,24 @@ function Customers(props) {
 					})}
 				>
 					<div className={classes.drawerHeader} />
-					<div style={{ marginTop: "6rem", marginLeft: "15rem" }}>
-						<h1>Styling dekhle ek baar Imad boi....sorting kardiya dekh</h1>
-
+					<div
+						style={{
+							marginTop: "6rem",
+							display: "flex",
+							flexDirection: "column",
+						}}
+					>
 						<Input
+							className={classes.searchInput}
 							variant="contained"
 							color="secondary"
 							placeholder="Search Customer"
 							value={searchValue}
-							onChange={(e)=>handleSearch(e.target.value)}
-							></Input>
+							onChange={(e) => handleSearch(e.target.value)}
+						></Input>
 
-						<SimpleSelect
-							handleSortBy = {handleSortBy}
-						></SimpleSelect>
-						
-						
+						<SimpleSelect handleSortBy={handleSortBy}></SimpleSelect>
+
 						<BasicTable></BasicTable>
 					</div>
 					<SimpleModal
@@ -176,12 +179,12 @@ const mapDispatchToProps = (dispatch) => {
 		setAllCustomers: (cust) => {
 			return dispatch({ type: "set_all_customers", payload: [...cust] });
 		},
-		setSearchValue:(val)=>{
-			return dispatch({type:"set_search_value",payload:val})
+		setSearchValue: (val) => {
+			return dispatch({ type: "set_search_value", payload: val });
 		},
-		setSortBy:(val)=>{
-			return dispatch({type:"set_sortBy",payload:val})
-		}
+		setSortBy: (val) => {
+			return dispatch({ type: "set_sortBy", payload: val });
+		},
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Customers);

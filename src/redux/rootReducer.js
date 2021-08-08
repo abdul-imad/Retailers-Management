@@ -3,13 +3,14 @@ import forgotReducer from "./forgotReducer";
 import sidebarReducer from "./sidebarReducer";
 import customerReducer from "./customerReducer";
 import eachCustomerReducer from "./eachCustomerReducer";
+import orderReducer from "./orderReducer";
 
 const rootReducer = combineReducers({
 	Forgot: forgotReducer,
 	Sidebar: sidebarReducer,
-    Customers:customerReducer,
-	EachCustomer:eachCustomerReducer
+	Customers: customerReducer,
+	EachCustomer: eachCustomerReducer,
+	Orders: orderReducer,
 });
-
 
 export default rootReducer;

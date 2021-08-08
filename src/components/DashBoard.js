@@ -33,12 +33,12 @@ const useStyles = makeStyles({
 
 function DashBoard(props) {
 	const { open } = props;
-    const history = useHistory()
-    useEffect(() => {
+	const history = useHistory();
+	useEffect(() => {
 		// console.log("use Effect");
 		let resp = auth.onAuthStateChanged((user) => {
 			if (user) {
-				history.push("/")
+				history.push("/");
 			}
 		});
 		return function () {
