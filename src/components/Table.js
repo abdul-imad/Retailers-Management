@@ -11,9 +11,14 @@ import store from "../app/store";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
+	tableContainer: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+	},
 	table: {
 		minWidth: 500,
-		maxWidth: 800,
+		maxWidth: 900,
 	},
 	header: {
 		color: "black",
@@ -42,10 +47,7 @@ export default function BasicTable() {
 	};
 
 	return (
-		<TableContainer
-			style={{ marginTop: "3rem", width: "800px" }}
-			component={Paper}
-		>
+		<TableContainer component={Paper} className={classes.tableContainer}>
 			<Table className={classes.table} aria-label="simple table">
 				<TableHead>
 					<TableRow>

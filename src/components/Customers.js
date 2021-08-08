@@ -32,6 +32,10 @@ const useStyles = makeStyles({
 	root: {
 		display: "flex",
 	},
+	searchInput: {
+		display: "flex",
+		margin: "0 auto 50px auto",
+	},
 });
 function Customers(props) {
 	const { open } = store.getState().Sidebar;
@@ -48,7 +52,7 @@ function Customers(props) {
 			});
 
 			props.setAllCustomers([...customerArr]);
-			if (searchValue == "") {
+			if (searchValue === "") {
 				props.setCustomers([...customerArr]);
 			}
 		})();
@@ -107,8 +111,15 @@ function Customers(props) {
 					})}
 				>
 					<div className={classes.drawerHeader} />
-					<div style={{ marginTop: "6rem", marginLeft: "15rem" }}>
+					<div
+						style={{
+							marginTop: "6rem",
+							display: "flex",
+							flexDirection: "column",
+						}}
+					>
 						<Input
+							className={classes.searchInput}
 							variant="contained"
 							color="secondary"
 							placeholder="Search Customer"
