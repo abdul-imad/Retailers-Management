@@ -10,6 +10,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import BasicTable from "./Table";
 import SimpleModal from "./SimpleModal";
 import { Input } from "@material-ui/core";
+import SimpleSelect from "./SortCustomer";
 const useStyles = makeStyles({
 	backdrop: {
 		zIndex: 100,
@@ -91,15 +92,26 @@ function Customers(props) {
 		props.setCustomers(searchedCustomers);
 	};
 
-	// if(searchValue==""){
-	// 	props.setCustomers([...props.allCustomers])
-	// }else{
-	// 	let searchedCustomers=props.allCustomers.map((customer)=>{
-	// 		return customer.cName.contains(searchValue)
-	// 	})
-	// 	props.setCustomers(searchedCustomers)
+	const handleSortBy = (e) => {
+		props.setSortBy(e.target.value);
 
-	// }
+		console.log(e.target.value);
+
+		if (e.target.value !== "") {
+			let customersTobeSorted = [...props.customers];
+			let sortedCustomers = customersTobeSorted.sort((customer1, customer2) => {
+				if (e.target.value == 1) {
+					return customer1.Unpaid - customer2.Unpaid;
+				} else {
+					return customer2.Unpaid - customer1.Unpaid;
+				}
+			});
+			props.setCustomers(sortedCustomers);
+			console.log("sorting ", sortedCustomers);
+		} else {
+			handleSearch(props.searchValue);
+		}
+	};
 
 	return (
 		<div className={classes.root}>
@@ -126,6 +138,9 @@ function Customers(props) {
 							value={searchValue}
 							onChange={(e) => handleSearch(e.target.value)}
 						></Input>
+
+						<SimpleSelect handleSortBy={handleSortBy}></SimpleSelect>
+
 						<BasicTable></BasicTable>
 					</div>
 					<SimpleModal
@@ -166,6 +181,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setSearchValue: (val) => {
 			return dispatch({ type: "set_search_value", payload: val });
+		},
+		setSortBy: (val) => {
+			return dispatch({ type: "set_sortBy", payload: val });
 		},
 	};
 };
