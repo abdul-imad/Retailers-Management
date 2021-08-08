@@ -41,12 +41,12 @@ const useStyles = makeStyles({
 export default function BasicTable() {
 	const classes = useStyles();
 	const customersToShow = store.getState().Customers.customers;
-	console.log(customersToShow);
 	const history = useHistory();
 	const showCustomers = (cid) => {
 		console.log(cid);
 		// history.push(cid);
 	};
+	let length = customersToShow.length;
 
 	return (
 		<TableContainer component={Paper} className={classes.tableContainer}>
@@ -75,29 +75,33 @@ export default function BasicTable() {
 						</TableCell>
 					</TableRow>
 				</TableHead>
-				<TableBody>
-					{customersToShow.map((customer, idx) => (
-						<TableRow
-							key={idx}
-							className={classes.row}
-							onClick={(e) => showCustomers(customer.cid)}
-						>
-							<Link>
+				{length === 0 ? (
+					<h3 style={{ textAlign: "center", color: "red" }}>
+						No Customers Found
+					</h3>
+				) : (
+					<TableBody>
+						{customersToShow.map((customer, idx) => (
+							<TableRow
+								key={idx}
+								className={classes.row}
+								onClick={(e) => showCustomers(e)}
+							>
 								<TableCell component="th" scope="row">
 									{customer.data.cName}
 								</TableCell>
-							</Link>
-							<TableCell className={classes.paid} align="right">
-								{customer.data.Paid}
-							</TableCell>
-							<TableCell className={classes.unpaid} align="right">
-								{customer.data.Unpaid}
-							</TableCell>
-							<TableCell align="right">{customer.data.TotalAmount}</TableCell>
-							<TableCell align="right">{customer.data.cPhone}</TableCell>
-						</TableRow>
-					))}
-				</TableBody>
+								<TableCell className={classes.paid} align="right">
+									{customer.data.Paid}
+								</TableCell>
+								<TableCell className={classes.unpaid} align="right">
+									{customer.data.Unpaid}
+								</TableCell>
+								<TableCell align="right">{customer.data.TotalAmount}</TableCell>
+								<TableCell align="right">{customer.data.cPhone}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				)}
 			</Table>
 		</TableContainer>
 	);
