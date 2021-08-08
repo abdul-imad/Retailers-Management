@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { Button, Modal } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Button, Modal, StepConnector } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import {connect} from "react-redux"
+import Inputs from "./Inputs"
 
 function AddOrderModal(props) {
 	const useStyles = makeStyles((theme) => ({
@@ -26,17 +28,32 @@ function AddOrderModal(props) {
 	const [open, setOpen] = React.useState(false);
 	const { loader } = props;
 	const [items, setItems] = useState([]);
-	const [totalAmount] = useState("");
+	// const [totalAmount,setTotalAmount] = useState(0);
+	const {totalAmount} = props
 	const handleOpen = () => {
 		setOpen(true);
 	};
+	console.log(props);
 
 	const handleClose = () => {
 		setOpen(false);
 	};
 	const handleAddItems = () => {
-		setItems([...items, <Input></Input>]);
+		props.addItems()
+		setItems([...items, <Inputs
+		id={items.length}
+		></Inputs>]);
 	};
+
+	// useEffect(()=>{
+	// 	let sum = 0;
+	// 	console.log("start")
+	// 	for(let i = 0; i < items.length; i++){
+	// 		console.log(items[i])
+	// 	}
+	// 	console.log(sum);
+	// 	setTotalAmount(sum)
+	// },[items])
 
 	const body = (
 		<div className={classes.paper}>
@@ -88,41 +105,16 @@ function AddOrderModal(props) {
 		</div>
 	);
 }
-
-export default AddOrderModal;
-
-function Input() {
-	const [item, setItem] = useState("");
-	const [quantity, setQuantity] = useState(0);
-	const [price, setPrice] = useState(0);
-	const [amount, setAmount] = useState(quantity * price);
-	console.log(quantity, price, amount);
-	return (
-		<div>
-			<input
-				placeholder="item"
-				value={item}
-				onChange={(e) => setItem(e.target.value)}
-			></input>
-			<input
-				placeholder="quantity"
-				value={quantity}
-				onChange={(e) => {
-					setQuantity(e.target.value);
-					let temp = e.target.value * price;
-					setAmount(temp);
-				}}
-			></input>
-			<input
-				placeholder="price"
-				value={price}
-				onChange={(e) => {
-					setPrice(e.target.value);
-					let temp = quantity * e.target.value;
-					setAmount(temp);
-				}}
-			></input>
-			<input placeholder="amount" value={amount} disabled={true}></input>
-		</div>
-	);
+function mapStateToProps(store){
+	return store.AddOrders
 }
+
+function mapDispatchToProps(dispatch){
+	return {
+		addItems:()=>{
+			return dispatch({type:"add_item"})
+		}
+	}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AddOrderModal);
