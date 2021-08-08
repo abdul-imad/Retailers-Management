@@ -41,10 +41,10 @@ const useStyles = makeStyles({
 export default function BasicTable() {
 	const classes = useStyles();
 	const customersToShow = store.getState().Customers.customers;
-
 	const history = useHistory();
-	const showCustomers = (e) => {
-		history.push("/eachcustomer");
+	const showCustomers = (cid) => {
+		console.log(cid);
+		// history.push(cid);
 	};
 	let length = customersToShow.length
 
@@ -80,17 +80,18 @@ export default function BasicTable() {
 					<TableBody>
 					{customersToShow.map((customer,idx) => (
 						<TableRow key={idx} className = {classes.row} onClick={(e)=>showCustomers(e)} >
+
 							<TableCell component="th" scope="row">
-								{customer.cName}
+								{customer.data.cName}
 							</TableCell>
 							<TableCell className={classes.paid} align="right">
-								{customer.Paid}
+								{customer.data.Paid}
 							</TableCell>
 							<TableCell className={classes.unpaid} align="right">
-								{customer.Unpaid}
+								{customer.data.Unpaid}
 							</TableCell>
-							<TableCell align="right">{customer.TotalAmount}</TableCell>
-							<TableCell align="right">{customer.cPhone}</TableCell>
+							<TableCell align="right">{customer.data.TotalAmount}</TableCell>
+							<TableCell align="right">{customer.data.cPhone}</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
