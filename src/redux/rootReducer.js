@@ -4,6 +4,7 @@ import sidebarReducer from "./sidebarReducer";
 import customerReducer from "./customerReducer";
 import eachCustomerReducer from "./eachCustomerReducer";
 import orderReducer from "./orderReducer";
+import addOrderReducer from "./addOrderReducer";
 
 const rootReducer = combineReducers({
 	Forgot: forgotReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
 	Customers: customerReducer,
 	EachCustomer: eachCustomerReducer,
 	Orders: orderReducer,
+	AddOrders:addOrderReducer
 });
 
 export default rootReducer;
