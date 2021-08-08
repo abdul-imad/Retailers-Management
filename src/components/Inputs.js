@@ -40,6 +40,7 @@ function Inputs(props) {
 
 function mapStateToProps(store) {
   return store.AddOrders;
+
 }
 
 function mapDispatchToProps(dispatch) {
