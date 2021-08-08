@@ -23,7 +23,7 @@ function App() {
 					<PrivateRoute path="/orders/unpaid" abc={UnpaidOrders} />
 					<PrivateRoute path="/orders" exact abc={Orders} />
 					<PrivateRoute path="/customers" abc={Customers} />
-					<PrivateRoute path="/eachcustomer" abc={EachCustomer} />
+					<PrivateRoute path="/customer/:cid" abc={EachCustomer} />
 					<PrivateRoute path="/items" abc={Items} />
 				</Switch>
 			</AuthProvider>

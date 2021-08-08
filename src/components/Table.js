@@ -82,22 +82,24 @@ export default function BasicTable() {
 				) : (
 					<TableBody>
 						{customersToShow.map((customer, idx) => (
-							<TableRow
-								key={idx}
-								className={classes.row}
-								onClick={(e) => showCustomers(e)}
-							>
-								<TableCell component="th" scope="row">
-									{customer.data.cName}
-								</TableCell>
-								<TableCell className={classes.paid} align="right">
-									{customer.data.Paid}
-								</TableCell>
-								<TableCell className={classes.unpaid} align="right">
-									{customer.data.Unpaid}
-								</TableCell>
-								<TableCell align="right">{customer.data.TotalAmount}</TableCell>
-								<TableCell align="right">{customer.data.cPhone}</TableCell>
+							<TableRow key={idx} >
+								<>
+									<TableCell component="th" scope="row">
+										<Link to={`/customer/${customer.cid}`} className={classes.row}>
+											{customer.data.cName}
+										</Link>
+									</TableCell>
+									<TableCell className={classes.paid} align="right">
+										{customer.data.Paid}
+									</TableCell>
+									<TableCell className={classes.unpaid} align="right">
+										{customer.data.Unpaid}
+									</TableCell>
+									<TableCell align="right">
+										{customer.data.TotalAmount}
+									</TableCell>
+									<TableCell align="right">{customer.data.cPhone}</TableCell>
+								</>
 							</TableRow>
 						))}
 					</TableBody>
