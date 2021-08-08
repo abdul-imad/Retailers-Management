@@ -2,33 +2,19 @@ import React, { useState } from "react";
 import { Button, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-function rand() {
-	return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-	const top = 50 + rand();
-	const left = 50 + rand();
-
-	return {
-		top: `${top}%`,
-		left: `${left}%`,
-		transform: `translate(-${top}%, -${left}%)`,
-	};
-}
-
 function AddOrderModal(props) {
-
 	const useStyles = makeStyles((theme) => ({
 		paper: {
 			position: "absolute",
 			width: "50rem",
-			height: "20rem",
+			minHeight: "20rem",
 			backgroundColor: "white",
 			border: "2px solid #000",
-			top: "40rem",
-			right: "30rem",
+			top: "100px",
+			left: "calc((100vw - 50rem) / 2)",
+			bottom: "100px",
 			padding: "1rem",
+			overflowY: "auto",
 		},
 		button: {
 			backgroundColor: "#f44336",
@@ -37,7 +23,6 @@ function AddOrderModal(props) {
 	}));
 	const classes = useStyles();
 	// getModalStyle is not a pure function, we roll the style only on the first render
-	const [modalStyle] = React.useState(getModalStyle);
 	const [open, setOpen] = React.useState(false);
 	const { loader } = props;
 	const [items, setItems] = useState([]);
@@ -54,20 +39,21 @@ function AddOrderModal(props) {
 	};
 
 	const body = (
-		<div style={modalStyle} className={classes.paper}>
+		<div className={classes.paper}>
+			<Button
+				variant="contained"
+				color="secondary"
+				onClick={() => handleAddItems()}
+			>
+				Add Item
+			</Button>
 			<div style={{ textAlign: "center", paddingTop: "3rem" }}>
 				<div>
 					{items.map((item, idx) => {
 						return <div key={idx}>{item}</div>;
 					})}
 				</div>
-				<Button
-					variant="contained"
-					color="secondary"
-					onClick={() => handleAddItems()}
-				>
-					Add Item
-				</Button>
+
 				<br></br>
 				<Button
 					variant="contained"

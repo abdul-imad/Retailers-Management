@@ -7,7 +7,7 @@ import store from "../app/store";
 import { database, db } from "../firebase/firebaseConfig";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import BasicTable from "./Table";
+import Table from "./Table";
 import SimpleModal from "./SimpleModal";
 import { Input } from "@material-ui/core";
 import SimpleSelect from "./SortCustomer";
@@ -150,7 +150,7 @@ function Customers(props) {
 							<SimpleSelect handleSortBy={handleSortBy} />
 						</div>
 
-						<BasicTable />
+						<Table />
 					</div>
 					<SimpleModal
 						addCustomers={addCustomers}
