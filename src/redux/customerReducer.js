@@ -3,7 +3,8 @@ const initialState={
     customers:[],
     cName:"",
     cPhone:"",
-    searchValue:""
+    searchValue:"",
+    sortBy:""
 }
 
 export default function customerReducer(state = initialState,action){
@@ -32,6 +33,11 @@ export default function customerReducer(state = initialState,action){
             return{
                 ...state,
                 searchValue:action.payload
+            }
+        case "set_sortBy":
+            return{
+                ...state,
+                sortBy:action.payload
             }
         default:
             return state
