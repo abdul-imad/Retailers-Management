@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -11,7 +12,6 @@ import { Input } from "@material-ui/core";
 import clsx from "clsx";
 import Sidebar from "./Sidebar";
 import store from "../app/store";
-import { connect } from "react-redux";
 import { db } from "../firebase/firebaseConfig";
 
 const useStyles = makeStyles({
