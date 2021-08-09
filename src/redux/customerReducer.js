@@ -4,7 +4,8 @@ const initialState={
     cName:"",
     cPhone:"",
     searchValue:"",
-    sortBy:""
+    sortBy:"",
+    open:false
 }
 
 export default function customerReducer(state = initialState,action){
@@ -38,6 +39,11 @@ export default function customerReducer(state = initialState,action){
             return{
                 ...state,
                 sortBy:action.payload
+            }
+        case "set_open":
+            return{
+                ...state,
+                open:action.payload
             }
         default:
             return state

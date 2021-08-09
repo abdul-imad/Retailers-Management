@@ -13,7 +13,6 @@ import Sidebar from "./Sidebar";
 import store from "../app/store";
 import { ordersData } from "../redux/middleWare/ordersData";
 import { connect } from "react-redux";
-import { db } from "../firebase/firebaseConfig";
 
 const useStyles = makeStyles({
 	innerRoot: {
@@ -54,30 +53,29 @@ const useStyles = makeStyles({
 });
 function Orders(props) {
 	const { open } = store.getState().Sidebar;
+	const { orders } = props;
 	const { searchValue } = props;
 
 	useEffect(() => {
-		(async () => {
-			// let customers = await db.collection("customers").get();
-			// let customerArr = [];
-			// customers.forEach((doc) => {
-			// 	customerArr.push(doc.data());
-			// });
-			let ordersArr = [];
-			ordersData.forEach((order) => {
-				ordersArr.push(order);
-			});
-
-			props.setAllOrders([...ordersArr]);
-			if (searchValue === "") {
-				props.setOrders([...ordersArr]);
-			}
-		})();
+		// (async () => {
+		// let customers = await db.collection("customers").get();
+		// let customerArr = [];
+		// customers.forEach((doc) => {
+		// 	customerArr.push(doc.data());
+		// });
+		let ordersArr = [];
+		ordersData.forEach((order) => {
+			ordersArr.push(order);
+		});
+		props.setAllOrders([...ordersArr]);
+		if (searchValue === "") {
+			props.setOrders([...ordersArr]);
+		}
+		// })();
 	}, []);
 
 	const handleSearch = (val) => {
 		props.setSearchValue(val);
-
 		let searchedCustomers = props.allOrders.filter((order) => {
 			return order.customerName.toLowerCase().includes(val.toLowerCase());
 		});
@@ -140,7 +138,7 @@ function Orders(props) {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{ordersData.map((eachOrder) => (
+									{orders.map((eachOrder) => (
 										<TableRow key={eachOrder.orderID} className={classes.row}>
 											<TableCell component="th" scope="row">
 												{eachOrder.customerName}
