@@ -11,6 +11,7 @@ import Table from "./Table";
 import SimpleModal from "./SimpleModal";
 import { Input } from "@material-ui/core";
 import SimpleSelect from "./SortCustomer";
+import { withRouter } from "react-router-dom";
 const useStyles = makeStyles({
 	backdrop: {
 		zIndex: 100,
@@ -97,7 +98,7 @@ function Customers(props) {
 		props.setSearchValue(val);
 
 		let searchedCustomers = props.allCustomers.filter((customer) => {
-			return customer.cName.toLowerCase().includes(val.toLowerCase());
+			return customer.data.cName.toLowerCase().includes(val.toLowerCase());
 		});
 		props.setCustomers(searchedCustomers);
 	};
@@ -111,9 +112,9 @@ function Customers(props) {
 			let customersTobeSorted = [...props.customers];
 			let sortedCustomers = customersTobeSorted.sort((customer1, customer2) => {
 				if (e.target.value === 1) {
-					return customer1.Unpaid - customer2.Unpaid;
+					return customer1.data.Unpaid - customer2.data.Unpaid;
 				} else {
-					return customer2.Unpaid - customer1.Unpaid;
+					return customer2.data.Unpaid - customer1.data.Unpaid;
 				}
 			});
 			props.setCustomers(sortedCustomers);
@@ -122,6 +123,7 @@ function Customers(props) {
 			handleSearch(props.searchValue);
 		}
 	};
+	console.log(props.allCustomers)
 
 	return (
 		<div className={classes.root}>
@@ -203,4 +205,4 @@ const mapDispatchToProps = (dispatch) => {
 		},
 	};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Customers);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Customers))

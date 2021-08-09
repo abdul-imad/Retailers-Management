@@ -13,6 +13,7 @@ import Sidebar from "./Sidebar";
 import store from "../app/store";
 import { ordersData } from "../redux/middleWare/ordersData";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles({
 	innerRoot: {
@@ -180,4 +181,4 @@ const mapDispatchToProps = (dispatch) => {
 		},
 	};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Orders);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Orders));

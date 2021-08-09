@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import Inputs from "./Inputs";
 import { database, db } from "../firebase/firebaseConfig";
+import { withRouter } from "react-router-dom";
 
 function AddOrderModal(props) {
   const useStyles = makeStyles((theme) => ({
@@ -141,4 +142,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddOrderModal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddOrderModal));

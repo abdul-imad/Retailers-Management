@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -134,4 +134,4 @@ function DashBoard(props) {
 const mapStateToProps = (state) => {
 	return state.Sidebar;
 };
-export default connect(mapStateToProps)(DashBoard);
+export default withRouter(connect(mapStateToProps)(DashBoard));
