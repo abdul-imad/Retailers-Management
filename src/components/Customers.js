@@ -54,8 +54,10 @@ function Customers(props) {
 				.collection("customers")
 				.orderBy("createdAt", "desc")
 				.onSnapshot(async (snapshot) => {
-					customerArr = snapshot.docs.map((doc) => doc.data());
-					console.log(customerArr);
+					customerArr = snapshot.docs.map((doc) => {
+						let eachCustData = { data: doc.data(), cid: doc.id };
+						return eachCustData;
+					});
 
 					props.setAllCustomers([...customerArr]);
 					if (searchValue === "") {

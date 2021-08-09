@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 function Inputs(props) {
@@ -43,17 +43,17 @@ function mapStateToProps(store) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    setPrice: (val, id) => {
-      return dispatch({ type: "set_price", payload: [val, id] });
-    },
-    setQuantity: (val, id) => {
-      return dispatch({ type: "set_quantity", payload: [val, id] });
-    },
-    setItemName: (val, id) => {
-      return dispatch({ type: "set_item_name", payload: [val, id] });
-    },
-  };
+	return {
+		setPrice: (val, id) => {
+			return dispatch({ type: "set_price", payload: [val, id] });
+		},
+		setQuantity: (val, id) => {
+			return dispatch({ type: "set_quantity", payload: [val, id] });
+		},
+		setItemName: (val, id) => {
+			return dispatch({ type: "set_item_name", payload: [val, id] });
+		},
+	};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inputs);

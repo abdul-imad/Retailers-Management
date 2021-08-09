@@ -45,7 +45,7 @@ function SimpleModal(props) {
 	// getModalStyle is not a pure function, we roll the style only on the first render
 	const [modalStyle] = React.useState(getModalStyle);
 	const { loader, setCName, setCPhone } = props;
-    const {open,setOpen} = props;
+	const { open, setOpen } = props;
 	const handleOpen = () => {
 		setOpen(true);
 	};
