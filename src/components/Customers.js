@@ -97,7 +97,7 @@ function Customers(props) {
 		props.setSearchValue(val);
 
 		let searchedCustomers = props.allCustomers.filter((customer) => {
-			return customer.cName.toLowerCase().includes(val.toLowerCase());
+			return customer.data.cName.toLowerCase().includes(val.toLowerCase());
 		});
 		props.setCustomers(searchedCustomers);
 	};

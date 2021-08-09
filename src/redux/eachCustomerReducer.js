@@ -1,9 +1,21 @@
-const initialState={
-    order:[],
+const initialState = {
+	oids: [],
+};
 
-}
+const eachCustomerReducer = (state = initialState, action) => {
+	switch (action.type) {
+		case "set_oids":
+			console.log(action.payload);
+			return {
+				oids: [...state.oids, action.payload],
+			};
 
-const eachCustomerReducer=(state=initialState,action)=>{
-    return state
-}
-export default eachCustomerReducer
+		case "reset_oids":
+			return {
+				oids: [],
+			};
+		default:
+			return state;
+	}
+};
+export default eachCustomerReducer;
