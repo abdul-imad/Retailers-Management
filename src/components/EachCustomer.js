@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import addOrderMiddleWare from "../redux/middleWare/addOrderMiddleWare";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -160,9 +159,6 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		makeOrder: () => {
-			return dispatch(addOrderMiddleWare);
-		},
 		setOids: (val) => {
 			return dispatch({ type: "set_oids", payload: val });
 		},
