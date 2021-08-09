@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 
 function Inputs(props) {
   const { id } = props;
-  const { itemName, quantity, price } = props;
+  const { itemName, quantity, price } = props.items;
   const [amount, setAmount] = useState(0);
   const [temp, setTemp] = useState(0);
   useEffect(() => {
-    setAmount(props[id].amount);
+      if(props.items.length>0)
+    setAmount(props.items[id].amount);
   }, [temp]);
   return (
     <div>
@@ -32,13 +33,13 @@ function Inputs(props) {
           setTemp(temp - 1);
         }}
       ></input>
-      <input value={amount} disabled={true}></input>
+      <input value={amount} ></input>
     </div>
   );
 }
 
 function mapStateToProps(store) {
-  return store.AddOrders.items;
+  return store.AddOrders;
 }
 
 function mapDispatchToProps(dispatch) {

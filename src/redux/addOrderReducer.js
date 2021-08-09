@@ -1,6 +1,7 @@
 const initialState = {
   items: [],
   totalAmount: 0,
+  paid:0
 };
 
 export default function (state = initialState, action) {
@@ -46,6 +47,18 @@ export default function (state = initialState, action) {
         items: [...temp3],
         totalAmount:newTotalAmount1
       };
+      case "set_paid":
+          return {
+              ...state,
+              paid:action.payload
+          }
+    case "set_default":
+        return{
+            items:[],
+            totalAmount:0,
+            paid:0
+
+        }
 
     default:
       return state;
