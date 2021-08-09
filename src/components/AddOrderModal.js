@@ -50,8 +50,8 @@ function AddOrderModal(props) {
 		let dd = String(today.getDate()).padStart(2, "0");
 		let mm = String(today.getMonth() + 1).padStart(2, "0");
 		let yyyy = today.getFullYear();
-
 		today = dd + "/" + mm + "/" + yyyy;
+
 		let order = {
 			items: props.items,
 			totalAmount: props.totalAmount,
@@ -62,6 +62,7 @@ function AddOrderModal(props) {
             cName:props.cName,
             createdAt:database.getTimeStamp()
 		};
+        
 		try {
 			let order1 = await db.collection("orders").add(order);
 			let oid = order1.id;

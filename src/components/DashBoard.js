@@ -6,7 +6,6 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-
 import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
 import auth from "../firebase/firebaseConfig";
@@ -33,9 +32,10 @@ const useStyles = makeStyles({
 
 function DashBoard(props) {
 	const { open } = props;
+
 	const history = useHistory();
+
 	useEffect(() => {
-		// console.log("use Effect");
 		let resp = auth.onAuthStateChanged((user) => {
 			if (user) {
 				history.push("/");
@@ -45,7 +45,9 @@ function DashBoard(props) {
 			resp();
 		};
 	}, []);
+
 	const classes = useStyles();
+
 	return (
 		<div className={classes.root}>
 			<div className={classes.innerRoot}>

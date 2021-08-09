@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import addOrderMiddleWare from "../redux/middleWare/addOrderMiddleWare";
-import { connect } from "react-redux";
-import AddOrderModal from "./AddOrderModal";
-import { useEffect } from "react";
-import { db } from "../firebase/firebaseConfig";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -13,6 +10,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { db } from "../firebase/firebaseConfig";
+import AddOrderModal from "./AddOrderModal";
 
 const useStyles = makeStyles({
 	tableContainer: {
@@ -75,10 +74,11 @@ function EachCustomer(props) {
 			}
 		})();
 	}, []);
-	console.log(oids);
+
 	let length = oids.length;
 
 	const classes = useStyles();
+
 	return (
 		<>
 			{!loader ? (
@@ -153,6 +153,7 @@ function EachCustomer(props) {
 		</>
 	);
 }
+
 const mapStateToProps = (store) => {
 	return store.EachCustomer;
 };
