@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
 import {
 	Card,
@@ -8,8 +9,6 @@ import {
 	TextField,
 	Typography,
 } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
-import { useEffect } from "react";
 import { AuthContext } from "../auth/AuthProvider";
 
 let useStyles = makeStyles({

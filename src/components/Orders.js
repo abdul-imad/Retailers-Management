@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -11,9 +12,7 @@ import { Input } from "@material-ui/core";
 import clsx from "clsx";
 import Sidebar from "./Sidebar";
 import store from "../app/store";
-import { ordersData } from "../redux/middleWare/ordersData";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { db } from "../firebase/firebaseConfig";
 
 const useStyles = makeStyles({
 	innerRoot: {
@@ -58,22 +57,29 @@ function Orders(props) {
 	const { searchValue } = props;
 
 	useEffect(() => {
-		// (async () => {
-		// let customers = await db.collection("customers").get();
-		// let customerArr = [];
-		// customers.forEach((doc) => {
-		// 	customerArr.push(doc.data());
-		// });
-		let ordersArr = [];
-		ordersData.forEach((order) => {
-			ordersArr.push(order);
-		});
-		props.setAllOrders([...ordersArr]);
-		if (searchValue === "") {
-			props.setOrders([...ordersArr]);
-		}
-		// })();
+		(async () => {
+			let ordersArr = [];
+			let unsub = await db
+				.collection("orders")
+				.orderBy("createdAt", "desc")
+				.onSnapshot((snapshot) => {
+					ordersArr = snapshot.docs.map((doc) => {
+						let eachOrderData = doc.data();
+						let cid = eachOrderData.cid;
+						console.log(cid);
+						return eachOrderData;
+					});
+
+					props.setAllOrders([...ordersArr]);
+					if (searchValue === "") {
+						props.setOrders([...ordersArr]);
+					}
+				});
+			return unsub;
+		})();
 	}, []);
+
+	console.log(orders);
 
 	const handleSearch = (val) => {
 		props.setSearchValue(val);
@@ -139,19 +145,23 @@ function Orders(props) {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{orders.map((eachOrder) => (
-										<TableRow key={eachOrder.orderID} className={classes.row}>
+									{orders.map((eachOrder, idx) => (
+										<TableRow key={idx} className={classes.row}>
 											<TableCell component="th" scope="row">
-												{eachOrder.customerName}
+												{eachOrder.cName}
 											</TableCell>
-											<TableCell align="right">{eachOrder.date}</TableCell>
+											<TableCell align="right">
+												{eachOrder.orderedDate}
+											</TableCell>
 											<TableCell align="right" className={classes.unpaid}>
 												{eachOrder.unpaid}
 											</TableCell>
 											<TableCell align="right" className={classes.paid}>
 												{eachOrder.paid}
 											</TableCell>
-											<TableCell align="right">{eachOrder.amount}</TableCell>
+											<TableCell align="right">
+												{eachOrder.totalAmount}
+											</TableCell>
 										</TableRow>
 									))}
 								</TableBody>

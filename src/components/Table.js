@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -41,11 +41,6 @@ const useStyles = makeStyles({
 export default function BasicTable() {
 	const classes = useStyles();
 	const customersToShow = store.getState().Customers.customers;
-	const history = useHistory();
-	const showCustomers = (cid) => {
-		console.log(cid);
-		// history.push(cid);
-	};
 	let length = customersToShow.length;
 
 	return (
@@ -82,10 +77,13 @@ export default function BasicTable() {
 				) : (
 					<TableBody>
 						{customersToShow.map((customer, idx) => (
-							<TableRow key={idx} >
+							<TableRow key={idx}>
 								<>
 									<TableCell component="th" scope="row">
-										<Link to={`/customer/${customer.cid}`} className={classes.row}>
+										<Link
+											to={`/customer/${customer.cid}`}
+											className={classes.row}
+										>
 											{customer.data.cName}
 										</Link>
 									</TableCell>

@@ -11,7 +11,11 @@ import Table from "./Table";
 import SimpleModal from "./SimpleModal";
 import { Input } from "@material-ui/core";
 import SimpleSelect from "./SortCustomer";
+<<<<<<< HEAD
 import { withRouter } from "react-router-dom";
+=======
+
+>>>>>>> aa8a66d24fc143db66f7b089e76dfaf063b09390
 const useStyles = makeStyles({
 	backdrop: {
 		zIndex: 100,

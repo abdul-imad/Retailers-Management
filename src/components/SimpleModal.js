@@ -1,16 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import store from "../app/store";
 import { Button, Modal, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useEffect } from "react";
-
-function rand() {
-	return Math.round(Math.random() * 20) - 10;
-}
 
 function getModalStyle() {
-	const top = 50 + rand();
-	const left = 50 + rand();
+	const top = 50;
+	const left = 50;
 
 	return {
 		top: `${top}%`,
@@ -41,11 +36,12 @@ function SimpleModal(props) {
 			bottom: "20rem",
 		},
 	}));
+
 	const classes = useStyles();
-	// getModalStyle is not a pure function, we roll the style only on the first render
-	const [modalStyle] = React.useState(getModalStyle);
+	const [modalStyle] = useState(getModalStyle);
 	const { loader, setCName, setCPhone } = props;
 	const { open, setOpen } = props;
+
 	const handleOpen = () => {
 		setOpen(true);
 	};

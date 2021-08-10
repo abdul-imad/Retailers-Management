@@ -1,5 +1,38 @@
 import React from "react";
+import { makeStyles } from "@material-ui/styles";
+import clsx from "clsx";
+import Sidebar from "./Sidebar";
+import store from "../app/store";
 
-export default function PaidOrders() {
-	return <div>Paid orders</div>;
+const useStyles = makeStyles({
+	innerRoot: {
+		flexGrow: 1,
+	},
+	root: {
+		display: "flex",
+	},
+});
+function PaidOrders() {
+	const { open } = store.getState().Sidebar;
+	const classes = useStyles();
+
+	return (
+		<div className={classes.root}>
+			<div className={classes.innerRoot}>
+				<Sidebar />
+				<main
+					className={clsx(classes.content, {
+						[classes.contentShift]: open,
+					})}
+				>
+					<div className={classes.drawerHeader} />
+					<div style={{ marginTop: "6rem" }}>
+						<h1>PaidOrders</h1>
+					</div>
+				</main>
+			</div>
+		</div>
+	);
 }
+
+export default PaidOrders;
