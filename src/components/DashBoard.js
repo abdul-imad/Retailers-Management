@@ -9,7 +9,6 @@ import Typography from "@material-ui/core/Typography";
 import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
 import auth, { db } from "../firebase/firebaseConfig";
-import { useLayoutEffect } from "react";
 import { PieChart } from 'react-minimal-pie-chart';
 
 const useStyles = makeStyles({
@@ -66,35 +65,6 @@ const useStyles = makeStyles({
 });
 
 function DashBoard(props) {
-<<<<<<< HEAD
-	const { open } = props;
-	const [clength, setClength] = useState(0);
-	const [totalOrdersLength, setTotalOrdersLength] = useState(0);
-	const [paidOrdersLength, setPaidOrdersLength] = useState(0);
-	const [unpaidOrdersLength, setUnpaidOrdersLength] = useState(0);
-	const history = useHistory();
-	useEffect(() => {
-		(async () => {
-			try {
-				let docRef = db.collection("customers");
-				let getData = await docRef.get();
-				let customerLength = 0;
-				getData.forEach(() => {
-					customerLength++;
-				});
-				let orderslength = 0;
-				let pol = 0;
-				let uol = 0;
-				let totalOrders = await db.collection("orders").get();
-				totalOrders.forEach((doc) => {
-					orderslength++;
-					if (doc.data().unpaid === 0) {
-						pol++;
-					} else {
-						uol++;
-					}
-				});
-=======
   const { open } = props;
   const [clength, setClength] = useState(0);
   const [totalOrdersLength, setTotalOrdersLength] = useState(0);
@@ -103,7 +73,6 @@ function DashBoard(props) {
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [totalPaid, setTotalPaid] = useState(0);
   const [totalUnpaid, setTotalUnpaid] = useState(0);
->>>>>>> e53aa10beaf696c38d4c127669ffd4550da9fb9a
 
   const history = useHistory();
   useEffect(() => {
@@ -127,7 +96,7 @@ function DashBoard(props) {
           temptotalRevenue += doc.data().totalAmount;
           temptotalPaid += Number(doc.data().paid);
           temptotalUnpaid += doc.data().unpaid;
-          if (doc.data().unpaid == 0) {
+          if (doc.data().unpaid === 0) {
             pol++;
           } else {
             uol++;
@@ -160,100 +129,6 @@ function DashBoard(props) {
     };
   }, []);
 
-<<<<<<< HEAD
-	return (
-		<div className={classes.root}>
-			<div className={classes.innerRoot}>
-				<Sidebar />
-				<main
-					className={clsx(classes.content, {
-						[classes.contentShift]: open,
-					})}
-				>
-					<div className={classes.drawerHeader} />
-					<div className={classes.dashboard}>
-						<Card className={[classes.card, classes.orders]}>
-							<CardContent>
-								<Typography
-									className={classes.title}
-									color="textSecondary"
-									gutterBottom
-								>
-									{totalOrdersLength}
-								</Typography>
-								<Typography variant="h5" component="h2">
-									Total Orders
-								</Typography>
-							</CardContent>
-							<CardActions className={classes.seeMoreBtn}>
-								<Link className={classes.link} to="/orders">
-									More Info &#8594;
-								</Link>
-							</CardActions>
-						</Card>
-						<Card className={[classes.card, classes.paid]}>
-							<CardContent>
-								<Typography
-									className={classes.title}
-									color="textSecondary"
-									gutterBottom
-								>
-									{paidOrdersLength}
-								</Typography>
-								<Typography variant="h5" component="h2">
-									Paid Orders
-								</Typography>
-							</CardContent>
-							<CardActions className={classes.seeMoreBtn}>
-								<Link className={classes.link} to="/orders/paid">
-									More Info &#8594;
-								</Link>
-							</CardActions>
-						</Card>
-						<Card className={[classes.card, classes.unpaid]}>
-							<CardContent>
-								<Typography
-									className={classes.title}
-									color="textSecondary"
-									gutterBottom
-								>
-									{unpaidOrdersLength}
-								</Typography>
-								<Typography variant="h5" component="h2">
-									Unpaid Orders
-								</Typography>
-							</CardContent>
-							<CardActions className={classes.seeMoreBtn}>
-								<Link className={classes.link} to="/orders/unpaid">
-									More Info &#8594;
-								</Link>
-							</CardActions>
-						</Card>
-						<Card className={[classes.card, classes.customers]}>
-							<CardContent>
-								<Typography
-									className={classes.title}
-									color="textSecondary"
-									gutterBottom
-								>
-									{clength}
-								</Typography>
-								<Typography variant="h5" component="h2">
-									Total Customers
-								</Typography>
-							</CardContent>
-							<CardActions className={classes.seeMoreBtn}>
-								<Link className={classes.link} to="/retailers">
-									More Info &#8594;
-								</Link>
-							</CardActions>
-						</Card>
-					</div>
-				</main>
-			</div>
-		</div>
-	);
-=======
   const classes = useStyles();
 
   return (
@@ -360,7 +235,6 @@ function DashBoard(props) {
       </div>
     </div>
   );
->>>>>>> e53aa10beaf696c38d4c127669ffd4550da9fb9a
 }
 const mapStateToProps = (state) => {
   return state.Sidebar;
