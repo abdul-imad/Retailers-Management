@@ -6,7 +6,15 @@ import store from "../app/store";
 import { withRouter } from "react-router-dom";
 
 function EachCustomer(props) {
-	
+	const {
+		match: {
+			params: { cid },
+		},
+	} = props;
+	// console.log(cid);
+	// console.log(location);
+	console.log(cid);
+	// let cid =
 	// useEffect(()=>{
 	// 	(async () => {
 	// 		let orderArr = [];
@@ -28,7 +36,7 @@ function EachCustomer(props) {
 
 	return (
 		<div>
-			<AddOrderModal></AddOrderModal>
+			<AddOrderModal />
 		</div>
 	);
 }
