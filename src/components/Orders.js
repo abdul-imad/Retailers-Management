@@ -84,7 +84,7 @@ function Orders(props) {
 	const handleSearch = (val) => {
 		props.setSearchValue(val);
 		let searchedCustomers = props.allOrders.filter((order) => {
-			return order.customerName.toLowerCase().includes(val.toLowerCase());
+			return order.cName.toLowerCase().includes(val.toLowerCase());
 		});
 		props.setOrders(searchedCustomers);
 	};
