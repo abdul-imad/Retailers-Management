@@ -107,4 +107,6 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ForgotPassword));
+export default withRouter(
+	connect(mapStateToProps, mapDispatchToProps)(ForgotPassword)
+);
