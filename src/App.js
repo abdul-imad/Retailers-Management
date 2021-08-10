@@ -22,8 +22,8 @@ function App() {
 					<PrivateRoute path="/orders/paid" abc={PaidOrders} />
 					<PrivateRoute path="/orders/unpaid" abc={UnpaidOrders} />
 					<PrivateRoute path="/orders" exact abc={Orders} />
-					<PrivateRoute path="/customers" abc={Customers} />
-					<PrivateRoute path="/customer/:cid" abc={EachCustomer} />
+					<PrivateRoute path="/retailers" abc={Customers} />
+					<PrivateRoute path="/retailer/:cid" abc={EachCustomer} />
                     <Route component={PageNotFound}></Route>
 				</Switch>
 			</AuthProvider>

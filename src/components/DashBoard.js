@@ -86,7 +86,7 @@ function DashBoard(props) {
 				let totalOrders = await db.collection("orders").get();
 				totalOrders.forEach((doc) => {
 					orderslength++;
-					if (doc.data.unpaid == 0) {
+					if (doc.data().unpaid === 0) {
 						pol++;
 					} else {
 						uol++;
@@ -200,7 +200,7 @@ function DashBoard(props) {
 								</Typography>
 							</CardContent>
 							<CardActions className={classes.seeMoreBtn}>
-								<Link className={classes.link} to="/customers">
+								<Link className={classes.link} to="/retailers">
 									More Info &#8594;
 								</Link>
 							</CardActions>

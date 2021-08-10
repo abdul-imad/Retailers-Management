@@ -21,7 +21,6 @@ import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 import { useContext } from "react";
@@ -46,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: "4px 2px",
 		color: "#ddd",
 		textDecoration: "none",
-		fontSize: "28px",
+		fontSize: "16px",
 		"&:hover": {
 			color: "#fff",
 		},
@@ -128,9 +127,7 @@ function Sidebar(props) {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography variant="h6" noWrap>
-						Admin
-					</Typography>
+					<h2>Admin</h2>
 					<Typography
 						variant="h6"
 						noWrap
@@ -173,11 +170,11 @@ function Sidebar(props) {
 							<ListItemIcon>
 								<DashboardIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
-							<ListItemText primary="Dashboard" />
+							<p>Dashboard</p>
 						</ListItem>
 					</Link>
 					<Link
-						to="/customers"
+						to="/retailers"
 						className={classes.sidebarLink}
 						onClick={handleDrawerClose}
 					>
@@ -185,7 +182,7 @@ function Sidebar(props) {
 							<ListItemIcon>
 								<PersonIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
-							<ListItemText primary="Customers" />
+							<p>Retailers</p>
 						</ListItem>
 					</Link>
 					<Link
@@ -197,7 +194,7 @@ function Sidebar(props) {
 							<ListItemIcon>
 								<ViewListIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
-							<ListItemText primary="Total Orders" />
+							<p>Total Orders</p>
 						</ListItem>
 					</Link>
 
@@ -210,7 +207,7 @@ function Sidebar(props) {
 							<ListItemIcon>
 								<PlaylistAddCheckIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
-							<ListItemText primary="Paid Orders" />
+							<p>Paid Orders</p>
 						</ListItem>
 					</Link>
 					<Link
@@ -222,7 +219,7 @@ function Sidebar(props) {
 							<ListItemIcon>
 								<EventBusyIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
-							<ListItemText primary="Unpaid Orders" />
+							<p>Unpaid Orders</p>
 						</ListItem>
 					</Link>
 					<a href className={classes.sidebarLink}>
@@ -230,7 +227,7 @@ function Sidebar(props) {
 							<ListItemIcon>
 								<ExitToAppRoundedIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
-							<ListItemText primary="Logout" />
+							<p>Logout</p>
 						</ListItem>
 					</a>
 				</List>

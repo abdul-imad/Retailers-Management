@@ -140,7 +140,7 @@ function EachCustomer(props) {
 													<>
 														<TableCell component="th" scope="row">
 															<Link
-																to={`/customer/${oid.cid}`}
+																to={`/retailer/${oid.cid}`}
 																className={classes.row}
 															>
 																{oid.orderedDate}

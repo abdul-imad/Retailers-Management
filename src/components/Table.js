@@ -23,25 +23,32 @@ const useStyles = makeStyles({
 	},
 	header: {
 		color: "black",
-		fontSize: "large",
+		fontSize: "18px",
+		fontWeight: 800,
+		fontFamily: "'Titillium Web', sans-serif",
 	},
 	paid: {
 		color: "green",
+		fontFamily: "'Titillium Web', sans-serif",
 	},
 	unpaid: {
 		color: "red",
+		fontFamily: "'Titillium Web', sans-serif",
 	},
 	cName: {
-        fontSize:"16px",
-        textDecoration:"none",
-        color:"#000",
+		fontSize: "16px",
+		textDecoration: "none",
+		color: "#000",
+		fontFamily: "'Titillium Web', sans-serif",
+
 		"&:hover": {
 			backgroundColor: "rgb(250,250,250)",
-            color:"#00f",
+			color: "#00f",
 			cursor: "pointer",
 		},
 	},
 	gotoIcon: {
+		fontFamily: "'Titillium Web', sans-serif",
 		marginBottom: "-5px",
 	},
 });
@@ -57,7 +64,7 @@ export default function BasicTable() {
 				<Table className={classes.table} aria-label="simple table">
 					<TableHead>
 						<TableRow>
-							<TableCell className={classes.header}>Customer Name</TableCell>
+							<TableCell className={classes.header}>Retailer</TableCell>
 							<TableCell
 								className={`${classes.header} ${classes.paid}`}
 								align="right"
@@ -90,7 +97,7 @@ export default function BasicTable() {
 									<>
 										<TableCell component="th" scope="row">
 											<Link
-												to={`/customer/${customer.cid}`}
+												to={`/retailer/${customer.cid}`}
 												className={classes.cName}
 											>
 												{customer.data.cName}

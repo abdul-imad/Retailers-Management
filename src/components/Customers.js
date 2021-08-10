@@ -133,7 +133,7 @@ function Customers(props) {
 						<div className={classes.filter}>
 							<Input
 								variant="contained"
-								placeholder="Search Customer"
+								placeholder="Search Retailer"
 								value={searchValue}
 								onChange={(e) => handleSearch(e.target.value)}
 							></Input>

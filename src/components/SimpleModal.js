@@ -23,7 +23,8 @@ function SimpleModal(props) {
 			width: "20rem",
 			height: "20rem",
 			backgroundColor: "white",
-			border: "2px solid #000",
+			border: "none",
+			borderRadius: "5px",
 			top: "40rem",
 			right: "30rem",
 			padding: "1rem",
@@ -37,6 +38,7 @@ function SimpleModal(props) {
 			color: "#fff",
 			cursor: "pointer",
 			borderRadius: "5px",
+			fontSize: "20px",
 			"&:hover": {
 				boxShadow: "3px 1px 5px -2px rgba(0,0,0,0.75)",
 			},
@@ -45,7 +47,8 @@ function SimpleModal(props) {
 
 	const classes = useStyles();
 	const [modalStyle] = useState(getModalStyle);
-	const { loader, setCName, setCPhone } = props;
+	const { setCName, setCPhone } = props;
+	const [loader, setLoader] = useState(true);
 	const { open, setOpen } = props;
 
 	const handleOpen = () => {
@@ -71,10 +74,15 @@ function SimpleModal(props) {
 					value={cName}
 					className="inputField"
 					fullWidth={true}
-					label="Customer Name"
+					label="Retailer Name"
 					placeholder="Name"
 					required={true}
-					onChange={(e) => setCName(e.target.value)}
+					onChange={(e) => {
+						if (e.target.value.length > 0 && cPhone.length >= 10) {
+							setLoader(false);
+						}
+						setCName(e.target.value);
+					}}
 				></TextField>
 			</div>
 			<div style={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
@@ -84,8 +92,14 @@ function SimpleModal(props) {
 					label="Phone Number"
 					type="tel"
 					required={true}
+					pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
 					placeholder="must contain atleast 10 digits"
-					onChange={(e) => setCPhone(e.target.value)}
+					onChange={(e) => {
+						if (e.target.value.length >= 10 && cName.length > 0) {
+							setLoader(false);
+						}
+						setCPhone(e.target.value);
+					}}
 				></TextField>
 			</div>
 			<div style={{ textAlign: "center", paddingTop: "3rem" }}>
@@ -106,7 +120,7 @@ function SimpleModal(props) {
 	return (
 		<div>
 			<button className={classes.button} style={{}} onClick={handleOpen}>
-				Add Customer
+				Add Retailer
 			</button>
 			<Modal
 				open={open}
