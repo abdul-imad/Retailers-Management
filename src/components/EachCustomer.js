@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import addOrderMiddleWare from "../redux/middleWare/addOrderMiddleWare";
 import { connect } from "react-redux";
 import AddOrderModal from "./AddOrderModal";
 import store from "../app/store";
 import { withRouter } from "react-router-dom";
+import { db } from "../firebase/firebaseConfig";
 
 function EachCustomer(props) {
 	const {
@@ -14,29 +15,20 @@ function EachCustomer(props) {
 	// console.log(cid);
 	// console.log(location);
 	console.log(cid);
-	// let cid =
-	// useEffect(()=>{
-	// 	(async () => {
-	// 		let orderArr = [];
-	// 		let unsub = await db
-	// 			.collection("orders")
-	// 			.orderBy("createdAt", "desc")
-	// 			.onSnapshot(async (snapshot) => {
-	// 				customerArr = snapshot.docs.map((doc) => doc.data());
-	// 				console.log(customerArr);
-
-	// 				props.setAllCustomers([...customerArr]);
-	// 				if (searchValue === "") {
-	// 					props.setCustomers([...customerArr]);
-	// 				}
-	// 			});
-	// 		return unsub;
-	// 	})();
-	// },[])
+	useEffect(()=>{
+		(async () => {
+			let orderArr = [];
+			let unsub = await db
+				.collection("customers")
+				.doc(cid).get()
+			let customerOrders = await unsub.data().orders
+			
+		})();
+	},[])
 
 	return (
 		<div>
-			<AddOrderModal />
+			<AddOrderModal cid={cid} />
 		</div>
 	);
 }

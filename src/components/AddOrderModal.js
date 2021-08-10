@@ -52,7 +52,7 @@ function AddOrderModal(props) {
 	let dd = String(today.getDate()).padStart(2, "0");
 	let mm = String(today.getMonth() + 1).padStart(2, "0");
 	let yyyy = today.getFullYear();
-
+  
 today = mm + "/" + dd + "/" + yyyy;
 	let order = {
 		items:props.items,
@@ -60,6 +60,7 @@ today = mm + "/" + dd + "/" + yyyy;
 		orderedDate:today,
 		paid:paid,
 		unpaid:totalAmount-paid,
+		cid:props.cid
 	}
 	try {
 		db.collection("orders").doc().set(order);
