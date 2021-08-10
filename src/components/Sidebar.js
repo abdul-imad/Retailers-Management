@@ -12,13 +12,16 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import PersonIcon from "@material-ui/icons/Person";
+import ViewListIcon from "@material-ui/icons/ViewList";
+import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
+import EventBusyIcon from "@material-ui/icons/EventBusy";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 import { useContext } from "react";
@@ -29,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
+		backgroundColor: "#082032",
 	},
 	appBarShift: {
 		width: `calc(100% - ${drawerWidth}px)`,
@@ -37,6 +41,15 @@ const useStyles = makeStyles((theme) => ({
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen,
 		}),
+	},
+	sidebarLink: {
+		padding: "4px 2px",
+		color: "#ddd",
+		textDecoration: "none",
+		fontSize: "28px",
+		"&:hover": {
+			color: "#fff",
+		},
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
@@ -50,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerPaper: {
 		width: drawerWidth,
-		boxShadow: "1px 1px 7px 3px #ddd",
+		boxShadow: "3px 1px 5px -2px rgba(0,0,0,0.75)",
+		backgroundColor: "#082032",
 	},
 	drawerHeader: {
 		display: "flex",
@@ -88,7 +102,8 @@ function Sidebar(props) {
 	const { open, handleDrawerClose, handleDrawerOpen } = props;
 	const { signOut } = useContext(AuthContext);
 
-	const handleLogout = async () => {
+	const handleLogout = async (e) => {
+		handleDrawerClose();
 		await signOut();
 	};
 
@@ -122,7 +137,7 @@ function Sidebar(props) {
 						className={classes.logoutBtn}
 						onClick={handleLogout}
 					>
-						<Button variant="contained" color="primary">
+						<Button variant="outlined" color="secondary">
 							<ExitToAppRoundedIcon />
 							Logout
 						</Button>
@@ -141,47 +156,83 @@ function Sidebar(props) {
 				<div className={classes.drawerHeader}>
 					<IconButton onClick={handleDrawerClose}>
 						{theme.direction === "ltr" ? (
-							<ClearRoundedIcon />
+							<ClearRoundedIcon style={{ color: "#fff" }} />
 						) : (
-							<ClearRoundedIcon />
+							<ClearRoundedIcon style={{ color: "#fff" }} />
 						)}
 					</IconButton>
 				</div>
 				<Divider />
 				<List>
-					<Link to="/" onClick={handleDrawerClose}>
+					<Link
+						to="/"
+						className={classes.sidebarLink}
+						onClick={handleDrawerClose}
+					>
 						<ListItem button>
 							<ListItemIcon>
-								<InboxIcon />
+								<DashboardIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
 							<ListItemText primary="Dashboard" />
 						</ListItem>
 					</Link>
-					<Link to="/customers" onClick={handleDrawerClose}>
+					<Link
+						to="/customers"
+						className={classes.sidebarLink}
+						onClick={handleDrawerClose}
+					>
 						<ListItem button>
 							<ListItemIcon>
-								<MailIcon />
+								<PersonIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
 							<ListItemText primary="Customers" />
 						</ListItem>
 					</Link>
-					<Link to="/orders" onClick={handleDrawerClose}>
+					<Link
+						to="/orders"
+						className={classes.sidebarLink}
+						onClick={handleDrawerClose}
+					>
 						<ListItem button>
 							<ListItemIcon>
-								<MailIcon />
+								<ViewListIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
-							<ListItemText primary="Orders" />
+							<ListItemText primary="Total Orders" />
 						</ListItem>
 					</Link>
 
-					<Link to="/Items" onClick={handleDrawerClose}>
+					<Link
+						to="/orders/paid"
+						className={classes.sidebarLink}
+						onClick={handleDrawerClose}
+					>
 						<ListItem button>
 							<ListItemIcon>
-								<MailIcon />
+								<PlaylistAddCheckIcon style={{ color: "#fff" }} />
 							</ListItemIcon>
-							<ListItemText primary="Items" />
+							<ListItemText primary="Paid Orders" />
 						</ListItem>
 					</Link>
+					<Link
+						to="/orders/unpaid"
+						className={classes.sidebarLink}
+						onClick={handleDrawerClose}
+					>
+						<ListItem button>
+							<ListItemIcon>
+								<EventBusyIcon style={{ color: "#fff" }} />
+							</ListItemIcon>
+							<ListItemText primary="Unpaid Orders" />
+						</ListItem>
+					</Link>
+					<a href className={classes.sidebarLink}>
+						<ListItem button onClick={handleLogout}>
+							<ListItemIcon>
+								<ExitToAppRoundedIcon style={{ color: "#fff" }} />
+							</ListItemIcon>
+							<ListItemText primary="Logout" />
+						</ListItem>
+					</a>
 				</List>
 			</Drawer>
 		</>

@@ -29,11 +29,17 @@ function SimpleModal(props) {
 			padding: "1rem",
 		},
 		button: {
-			backgroundColor: "#f44336",
-			height: "2rem",
-			position: "absolute",
-			left: "73rem",
-			bottom: "20rem",
+			border: "none",
+			background: "transparent",
+			backgroundColor: "#082032",
+			height: "2.5rem",
+			width: "8rem",
+			color: "#fff",
+			cursor: "pointer",
+			borderRadius: "5px",
+			"&:hover": {
+				boxShadow: "3px 1px 5px -2px rgba(0,0,0,0.75)",
+			},
 		},
 	}));
 
@@ -100,7 +106,7 @@ function SimpleModal(props) {
 	return (
 		<div>
 			<button className={classes.button} style={{}} onClick={handleOpen}>
-				Add Customers
+				Add Customer
 			</button>
 			<Modal
 				open={open}

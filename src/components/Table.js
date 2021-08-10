@@ -8,17 +8,18 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import LaunchIcon from "@material-ui/icons/Launch";
 import store from "../app/store";
 
 const useStyles = makeStyles({
-	tableContainer: {
+	tableDiv: {
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	table: {
-		minWidth: 500,
-		maxWidth: 900,
+	tableContainer: {
+		minWidth: 600,
+		maxWidth: 1000,
 	},
 	header: {
 		color: "black",
@@ -30,11 +31,18 @@ const useStyles = makeStyles({
 	unpaid: {
 		color: "red",
 	},
-	row: {
+	cName: {
+        fontSize:"16px",
+        textDecoration:"none",
+        color:"#000",
 		"&:hover": {
 			backgroundColor: "rgb(250,250,250)",
+            color:"#00f",
 			cursor: "pointer",
 		},
+	},
+	gotoIcon: {
+		marginBottom: "-5px",
 	},
 });
 
@@ -44,65 +52,68 @@ export default function BasicTable() {
 	let length = customersToShow.length;
 
 	return (
-		<TableContainer component={Paper} className={classes.tableContainer}>
-			<Table className={classes.table} aria-label="simple table">
-				<TableHead>
-					<TableRow>
-						<TableCell className={classes.header}>Customer Name</TableCell>
-						<TableCell
-							className={`${classes.header} ${classes.paid}`}
-							align="right"
-						>
-							Paid
-						</TableCell>
-						<TableCell
-							className={`${classes.header} ${classes.unpaid}`}
-							align="right"
-						>
-							Unpaid
-						</TableCell>
+		<div className={classes.tableDiv}>
+			<TableContainer component={Paper} className={classes.tableContainer}>
+				<Table className={classes.table} aria-label="simple table">
+					<TableHead>
+						<TableRow>
+							<TableCell className={classes.header}>Customer Name</TableCell>
+							<TableCell
+								className={`${classes.header} ${classes.paid}`}
+								align="right"
+							>
+								Paid
+							</TableCell>
+							<TableCell
+								className={`${classes.header} ${classes.unpaid}`}
+								align="right"
+							>
+								Unpaid
+							</TableCell>
 
-						<TableCell className={classes.header} align="right">
-							Total Amount
-						</TableCell>
-						<TableCell className={classes.header} align="right">
-							Phone
-						</TableCell>
-					</TableRow>
-				</TableHead>
-				{length === 0 ? (
-					<h3 style={{ textAlign: "center", color: "red" }}>
-						No Customers Found
-					</h3>
-				) : (
-					<TableBody>
-						{customersToShow.map((customer, idx) => (
-							<TableRow key={idx}>
-								<>
-									<TableCell component="th" scope="row">
-										<Link
-											to={`/customer/${customer.cid}`}
-											className={classes.row}
-										>
-											{customer.data.cName}
-										</Link>
-									</TableCell>
-									<TableCell className={classes.paid} align="right">
-										{customer.data.Paid}
-									</TableCell>
-									<TableCell className={classes.unpaid} align="right">
-										{customer.data.Unpaid}
-									</TableCell>
-									<TableCell align="right">
-										{customer.data.TotalAmount}
-									</TableCell>
-									<TableCell align="right">{customer.data.cPhone}</TableCell>
-								</>
-							</TableRow>
-						))}
-					</TableBody>
-				)}
-			</Table>
-		</TableContainer>
+							<TableCell className={classes.header} align="right">
+								Total Amount
+							</TableCell>
+							<TableCell className={classes.header} align="right">
+								Phone
+							</TableCell>
+						</TableRow>
+					</TableHead>
+					{length === 0 ? (
+						<h3 style={{ textAlign: "center", color: "red" }}>
+							No Customers Found
+						</h3>
+					) : (
+						<TableBody>
+							{customersToShow.map((customer, idx) => (
+								<TableRow key={idx}>
+									<>
+										<TableCell component="th" scope="row">
+											<Link
+												to={`/customer/${customer.cid}`}
+												className={classes.cName}
+											>
+												{customer.data.cName}
+												<LaunchIcon className={classes.gotoIcon} />
+											</Link>
+										</TableCell>
+										<TableCell className={classes.paid} align="right">
+											{customer.data.Paid}
+										</TableCell>
+										<TableCell className={classes.unpaid} align="right">
+											{customer.data.Unpaid}
+										</TableCell>
+										<TableCell align="right">
+											{customer.data.TotalAmount}
+										</TableCell>
+										<TableCell align="right">{customer.data.cPhone}</TableCell>
+									</>
+								</TableRow>
+							))}
+						</TableBody>
+					)}
+				</Table>
+			</TableContainer>
+		</div>
 	);
 }
