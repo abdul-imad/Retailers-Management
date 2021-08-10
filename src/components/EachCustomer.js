@@ -13,7 +13,6 @@ import { db } from "../firebase/firebaseConfig";
 import AddOrderModal from "./AddOrderModal";
 import store from "../app/store";
 import { withRouter } from "react-router-dom";
-import { db } from "../firebase/firebaseConfig";
 
 const useStyles = makeStyles({
 	tableContainer: {
@@ -157,7 +156,7 @@ function EachCustomer(props) {
 }
 
 const mapStateToProps = (store) => {
-	return store.Customers;
+	return store.EachCustomer;
 };
 
 const mapDispatchToProps = (dispatch) => {
