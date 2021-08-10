@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,7 +8,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
-import auth from "../firebase/firebaseConfig";
+import auth, { db } from "../firebase/firebaseConfig";
+import { useLayoutEffect } from "react";
 
 const useStyles = makeStyles({
 	innerRoot: {
@@ -40,10 +41,10 @@ const useStyles = makeStyles({
 	},
 	link: {
 		color: "#eee",
-        textDecoration:"none",
-        "&:hover":{
-            color:"#fff",
-        }
+		textDecoration: "none",
+		"&:hover": {
+			color: "#fff",
+		},
 	},
 	orders: {
 		background:
@@ -65,8 +66,44 @@ const useStyles = makeStyles({
 
 function DashBoard(props) {
 	const { open } = props;
-
+	const [clength, setClength] = useState(0);
+	const [totalOrdersLength, setTotalOrdersLength] = useState(0);
+	const [paidOrdersLength, setPaidOrdersLength] = useState(0);
+	const [unpaidOrdersLength, setUnpaidOrdersLength] = useState(0);
 	const history = useHistory();
+	useEffect(() => {
+		(async () => {
+			try {
+				let docRef = db.collection("customers");
+				let getData = await docRef.get();
+				let customerLength = 0;
+				getData.forEach(() => {
+					customerLength++;
+				});
+				let orderslength = 0;
+				let pol = 0;
+				let uol = 0;
+				let totalOrders = await db.collection("orders").get();
+				totalOrders.forEach((doc) => {
+					orderslength++;
+					if (doc.data.unpaid == 0) {
+						pol++;
+					} else {
+						uol++;
+					}
+				});
+
+				setTotalOrdersLength(orderslength);
+				setPaidOrdersLength(pol);
+				setUnpaidOrdersLength(uol);
+				setClength(customerLength);
+				setTotalOrdersLength(orderslength);
+				return docRef;
+			} catch (err) {
+				console.log(err);
+			}
+		})();
+	}, []);
 
 	useEffect(() => {
 		let resp = auth.onAuthStateChanged((user) => {
@@ -99,7 +136,7 @@ function DashBoard(props) {
 									color="textSecondary"
 									gutterBottom
 								>
-									5
+									{totalOrdersLength}
 								</Typography>
 								<Typography variant="h5" component="h2">
 									Total Orders
@@ -118,7 +155,7 @@ function DashBoard(props) {
 									color="textSecondary"
 									gutterBottom
 								>
-									2
+									{paidOrdersLength}
 								</Typography>
 								<Typography variant="h5" component="h2">
 									Paid Orders
@@ -137,7 +174,7 @@ function DashBoard(props) {
 									color="textSecondary"
 									gutterBottom
 								>
-									3
+									{unpaidOrdersLength}
 								</Typography>
 								<Typography variant="h5" component="h2">
 									Unpaid Orders
@@ -156,7 +193,7 @@ function DashBoard(props) {
 									color="textSecondary"
 									gutterBottom
 								>
-									7
+									{clength}
 								</Typography>
 								<Typography variant="h5" component="h2">
 									Total Customers
