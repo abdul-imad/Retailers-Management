@@ -11,6 +11,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { db } from "../firebase/firebaseConfig";
 import AddOrderModal from "./AddOrderModal";
+import store from "../app/store";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles({
 	tableContainer: {
@@ -267,4 +269,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EachCustomer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EachCustomer));

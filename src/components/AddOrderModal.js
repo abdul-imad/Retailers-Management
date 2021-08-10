@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import Inputs from "./Inputs";
 import { database, db } from "../firebase/firebaseConfig";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -69,8 +70,14 @@ function AddOrderModal(props) {
 			let docRef = await db.collection("customers").doc(props.cid);
 			let getData = await docRef.get();
 			let oldOrders = await getData.data().orders;
+      let oldPaid = await getData.data().Paid;
+      let oldUnpaid = await getData.data().Unpaid;
+      let oldAmount = await getData.data().TotalAmount;
 			let newOrders = await docRef.update({
 				orders: [...oldOrders, oid],
+        Paid: oldPaid + paid,
+        Unpaid : oldUnpaid + (totalAmount-paid),
+        TotalAmount:oldAmount+totalAmount
 			});
 			console.log(newOrders);
 			handleClose();
@@ -158,4 +165,4 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddOrderModal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddOrderModal));
