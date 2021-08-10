@@ -11,7 +11,6 @@ import Table from "./Table";
 import SimpleModal from "./SimpleModal";
 import { Input } from "@material-ui/core";
 import SimpleSelect from "./SortCustomer";
-
 const useStyles = makeStyles({
 	backdrop: {
 		zIndex: 100,
@@ -101,9 +100,9 @@ function Customers(props) {
 			let customersTobeSorted = [...props.customers];
 			let sortedCustomers = customersTobeSorted.sort((customer1, customer2) => {
 				if (e.target.value === 1) {
-					return customer1.Unpaid - customer2.Unpaid;
+					return customer1.data.Unpaid - customer2.data.Unpaid;
 				} else {
-					return customer2.Unpaid - customer1.Unpaid;
+					return customer2.data.Unpaid - customer1.data.Unpaid;
 				}
 			});
 			props.setCustomers(sortedCustomers);
@@ -112,6 +111,7 @@ function Customers(props) {
 			handleSearch(props.searchValue);
 		}
 	};
+	console.log(props.allCustomers)
 
 	return (
 		<div className={classes.root}>
@@ -191,4 +191,4 @@ const mapDispatchToProps = (dispatch) => {
 		},
 	};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Customers);
+export default connect(mapStateToProps, mapDispatchToProps)(Customers)

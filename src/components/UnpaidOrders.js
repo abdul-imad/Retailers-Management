@@ -51,7 +51,7 @@ const useStyles = makeStyles({
 		margin: "0 auto 50px auto",
 	},
 });
-function PaidOrders(props) {
+function UnPaidOrders(props) {
 	const { open } = store.getState().Sidebar;
 	const { orders } = props;
 	const { searchValue } = props;
@@ -68,7 +68,7 @@ function PaidOrders(props) {
 						return eachOrderData;
 					});
 					let filteredOrders = ordersArr.filter((order) => {
-						return order.paid !== 0;
+						return order.unpaid > 0;
 					});
 
 					props.setAllOrders([...filteredOrders]);
@@ -194,4 +194,4 @@ const mapDispatchToProps = (dispatch) => {
 		},
 	};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(PaidOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(UnPaidOrders);

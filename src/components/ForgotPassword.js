@@ -10,6 +10,7 @@ import {
 	TextField,
 } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
+import { withRouter } from "react-router-dom";
 
 let useStyles = makeStyles({
 	centerDiv: {
@@ -106,4 +107,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ForgotPassword));
