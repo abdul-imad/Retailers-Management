@@ -12,16 +12,22 @@ const useStyles = makeStyles((theme) => ({
 		width: "50rem",
 		minHeight: "20rem",
 		backgroundColor: "white",
-		border: "2px solid #000",
 		top: "100px",
 		left: "calc((100vw - 50rem) / 2)",
 		bottom: "100px",
 		padding: "1rem",
 		overflowY: "auto",
+        border:"none",
+        borderRadius:"5px"
 	},
 	button: {
-		backgroundColor: "#f44336",
+		backgroundColor: "#082032",
+		color: "#fff",
+		borderRadius: "5px",
 		height: "2rem",
+		border: "none",
+		background: "transparent",
+		cursor: "pointer",
 	},
 }));
 
@@ -93,6 +99,7 @@ function AddOrderModal(props) {
 			<Button
 				variant="contained"
 				color="secondary"
+				className={classes.addOrderBtn}
 				onClick={() => handleAddItems()}
 			>
 				Add Item

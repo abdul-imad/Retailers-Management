@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Table from "@material-ui/core/Table";
@@ -37,22 +36,35 @@ const useStyles = makeStyles({
 	},
 	header: {
 		color: "black",
-		fontSize: "large",
+		fontSize: "18px",
+		fontWeight: 800,
+		fontFamily: "'Titillium Web', sans-serif",
 	},
+	cName: { fontFamily: "'Titillium Web', sans-serif" },
+	date: { fontFamily: "'Titillium Web', sans-serif" },
 	paid: {
 		color: "green",
+		fontFamily: "'Titillium Web', sans-serif",
 	},
 	unpaid: {
 		color: "red",
+		fontFamily: "'Titillium Web', sans-serif",
 	},
+	totalAmount: { fontFamily: "'Titillium Web', sans-serif" },
 	row: {
 		"&:hover": {
-			backgroundColor: "rgb(250,250,250)",
+			backgroundColor: "rgb(200,200,200)",
 			cursor: "pointer",
 		},
 	},
 	orderDetails: {
-		width: "100%",
+		display: "flex",
+		justifyContent: "space-around",
+		alignItems: "center",
+	},
+	orderDetailInfo: {
+		fontSize: "20px",
+		fontWeight: "bold",
 	},
 });
 
@@ -188,7 +200,7 @@ function EachCustomer(props) {
 													</TableHead>
 													{length === 0 ? (
 														<h3 style={{ textAlign: "center", color: "red" }}>
-															No Orders Till Now{" "}
+															No Orders Till Now
 														</h3>
 													) : (
 														<TableBody>
@@ -196,6 +208,7 @@ function EachCustomer(props) {
 																<TableRow
 																	key={idx}
 																	id={idx}
+																	className={classes.row}
 																	onClick={(e) => {
 																		let index = e.target.parentNode.id;
 																		props.setCurrentOrder(index);
@@ -203,13 +216,12 @@ function EachCustomer(props) {
 																	}}
 																>
 																	<>
-																		<TableCell component="th" scope="row">
-																			<Link
-																				to={`/retailer/${oid.cid}`}
-																				className={classes.row}
-																			>
-																				{oid.orderedDate}
-																			</Link>
+																		<TableCell
+																			component="th"
+																			scope="row"
+																			className={classes.date}
+																		>
+																			{oid.orderedDate}
 																		</TableCell>
 																		<TableCell
 																			className={classes.paid}
@@ -223,7 +235,10 @@ function EachCustomer(props) {
 																		>
 																			{oid.unpaid}
 																		</TableCell>
-																		<TableCell align="right">
+																		<TableCell
+																			className={classes.totalAmount}
+																			align="right"
+																		>
 																			{oid.totalAmount}
 																		</TableCell>
 																	</>
@@ -238,8 +253,12 @@ function EachCustomer(props) {
 									<div>
 										{props.currentOrder === undefined ? null : (
 											<div className={classes.orderDetails}>
-												<span>Date : {props.currentOrder.orderedDate}</span>
-												<span>Total : {props.currentOrder.totalAmount}</span>
+												<div className={classes.orderDetailInfo}>
+													Date : {props.currentOrder.orderedDate}
+												</div>
+												<div className={classes.orderDetailInfo}>
+													Total : {props.currentOrder.totalAmount}
+												</div>
 											</div>
 										)}
 										{props.currentOrder === undefined ? (

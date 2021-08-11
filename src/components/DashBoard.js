@@ -73,6 +73,7 @@ function DashBoard(props) {
 	const [totalRevenue, setTotalRevenue] = useState(0);
 	const [totalPaid, setTotalPaid] = useState(0);
 	const [totalUnpaid, setTotalUnpaid] = useState(0);
+	const [loader, setLoader] = useState(true);
 
 	const history = useHistory();
 	useEffect(() => {
@@ -111,8 +112,11 @@ function DashBoard(props) {
 				setUnpaidOrdersLength(uol);
 				setClength(customerLength);
 				setTotalOrdersLength(orderslength);
+
+				setLoader(false);
 				return docRef;
 			} catch (err) {
+				setLoader(false);
 				console.log(err);
 			}
 		})();
@@ -135,96 +139,100 @@ function DashBoard(props) {
 		<div className={classes.root}>
 			<div className={classes.innerRoot}>
 				<Sidebar />
-				<main
-					className={clsx(classes.content, {
-						[classes.contentShift]: open,
-					})}
-				>
-					<div className={classes.drawerHeader} />
-					<div className={classes.dashboard}>
-						<Card className={[classes.card, classes.orders]}>
-							<CardContent>
-								<Typography
-									className={classes.title}
-									color="textSecondary"
-									gutterBottom
-								>
-									{totalOrdersLength}
-								</Typography>
-								<Typography variant="h5" component="h2">
-									Total Orders
-								</Typography>
-							</CardContent>
-							<CardActions className={classes.seeMoreBtn}>
-								<Link className={classes.link} to="/orders">
-									More Info &#8594;
-								</Link>
-							</CardActions>
-						</Card>
-						<Card className={[classes.card, classes.paid]}>
-							<CardContent>
-								<Typography
-									className={classes.title}
-									color="textSecondary"
-									gutterBottom
-								>
-									{paidOrdersLength}
-								</Typography>
-								<Typography variant="h5" component="h2">
-									Paid Orders
-								</Typography>
-							</CardContent>
-							<CardActions className={classes.seeMoreBtn}>
-								<Link className={classes.link} to="/orders/paid">
-									More Info &#8594;
-								</Link>
-							</CardActions>
-						</Card>
-						<Card className={[classes.card, classes.unpaid]}>
-							<CardContent>
-								<Typography
-									className={classes.title}
-									color="textSecondary"
-									gutterBottom
-								>
-									{unpaidOrdersLength}
-								</Typography>
-								<Typography variant="h5" component="h2">
-									Unpaid Orders
-								</Typography>
-							</CardContent>
-							<CardActions className={classes.seeMoreBtn}>
-								<Link className={classes.link} to="/orders/unpaid">
-									More Info &#8594;
-								</Link>
-							</CardActions>
-						</Card>
-						<Card className={[classes.card, classes.customers]}>
-							<CardContent>
-								<Typography
-									className={classes.title}
-									color="textSecondary"
-									gutterBottom
-								>
-									{clength}
-								</Typography>
-								<Typography variant="h5" component="h2">
-									Total Customers
-								</Typography>
-							</CardContent>
-							<CardActions className={classes.seeMoreBtn}>
-								<Link className={classes.link} to="/customers">
-									More Info &#8594;
-								</Link>
-							</CardActions>
-						</Card>
-					</div>
-					<div>
-						<p>{totalRevenue}</p>
-						<p>{totalPaid}</p>
-						<p>{totalUnpaid}</p>
-					</div>
-				</main>
+				{!loader ? (
+					<main
+						className={clsx(classes.content, {
+							[classes.contentShift]: open,
+						})}
+					>
+						<div className={classes.drawerHeader} />
+						<div className={classes.dashboard}>
+							<Card className={[classes.card, classes.orders]}>
+								<CardContent>
+									<Typography
+										className={classes.title}
+										color="textSecondary"
+										gutterBottom
+									>
+										{totalOrdersLength}
+									</Typography>
+									<Typography variant="h5" component="h2">
+										Total Orders
+									</Typography>
+								</CardContent>
+								<CardActions className={classes.seeMoreBtn}>
+									<Link className={classes.link} to="/orders">
+										More Info &#8594;
+									</Link>
+								</CardActions>
+							</Card>
+							<Card className={[classes.card, classes.paid]}>
+								<CardContent>
+									<Typography
+										className={classes.title}
+										color="textSecondary"
+										gutterBottom
+									>
+										{paidOrdersLength}
+									</Typography>
+									<Typography variant="h5" component="h2">
+										Paid Orders
+									</Typography>
+								</CardContent>
+								<CardActions className={classes.seeMoreBtn}>
+									<Link className={classes.link} to="/orders/paid">
+										More Info &#8594;
+									</Link>
+								</CardActions>
+							</Card>
+							<Card className={[classes.card, classes.unpaid]}>
+								<CardContent>
+									<Typography
+										className={classes.title}
+										color="textSecondary"
+										gutterBottom
+									>
+										{unpaidOrdersLength}
+									</Typography>
+									<Typography variant="h5" component="h2">
+										Unpaid Orders
+									</Typography>
+								</CardContent>
+								<CardActions className={classes.seeMoreBtn}>
+									<Link className={classes.link} to="/orders/unpaid">
+										More Info &#8594;
+									</Link>
+								</CardActions>
+							</Card>
+							<Card className={[classes.card, classes.customers]}>
+								<CardContent>
+									<Typography
+										className={classes.title}
+										color="textSecondary"
+										gutterBottom
+									>
+										{clength}
+									</Typography>
+									<Typography variant="h5" component="h2">
+										Total Retailers
+									</Typography>
+								</CardContent>
+								<CardActions className={classes.seeMoreBtn}>
+									<Link className={classes.link} to="/retailers">
+										More Info &#8594;
+									</Link>
+								</CardActions>
+							</Card>
+						</div>
+						<div>
+							<p>{totalRevenue}</p>
+							<p>{totalPaid}</p>
+							<p>{totalUnpaid}</p>
+						</div>
+					</main>
+				) : (
+					<h1 style={{ margin: "200px auto 200px auto" }}>...Loading</h1>
+				)}
 				<PieChart
 					data={[
 						{ title: "One", value: 10, color: "#E38627" },
