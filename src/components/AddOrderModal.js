@@ -55,7 +55,7 @@ function AddOrderModal(props) {
 	const [open, setOpen] = React.useState(false);
 	const [loader, setLoader] = useState(false);
 	const [items, setItems] = useState([]);
-	const { totalAmount, paid } = props;
+	let { totalAmount, paid } = props;
 
 	const handleOpen = () => {
 		setOpen(true);
@@ -98,6 +98,11 @@ function AddOrderModal(props) {
 			let oldPaid = await getData.data().Paid;
 			let oldUnpaid = await getData.data().Unpaid;
 			let oldAmount = await getData.data().TotalAmount;
+			paid = parseInt(paid);
+			totalAmount = parseInt(totalAmount);
+			oldPaid = parseInt(oldPaid);
+			oldUnpaid = parseInt(oldUnpaid);
+			oldAmount = parseInt(oldAmount);
 			let newOrders = await docRef.update({
 				orders: [...oldOrders, oid],
 				Paid: oldPaid + paid,
@@ -172,7 +177,7 @@ function AddOrderModal(props) {
 							onClick={(e) => {
 								makeAnOrder(e);
 								setTimeout(() => {
-									window.location.reload();
+									window.location.reload(true);
 								}, 3000);
 							}}
 						>
