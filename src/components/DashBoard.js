@@ -53,11 +53,12 @@ function DashBoard(props) {
         let totalOrders = await db.collection("orders").get();
         totalOrders.forEach((doc) => {
           orderslength++;
-          if (doc.data.unpaid == 0) {
-            pol++;
-          } else {
-            uol++;
-          }
+		let unpaidAmount = doc.data().unpaid
+			if(unpaidAmount == 0){
+				pol++
+			}else{
+				uol++
+			}
         });
 
         setTotalOrdersLength(orderslength);
