@@ -73,6 +73,8 @@ function EachCustomer(props) {
 	const { open } = store.getState().Sidebar;
 	const [loader, setLoader] = useState(true);
 	const [cName, setcName] = useState("");
+	const [cPhone, setcPhone] = useState("");
+	const [cBal, setcBal] = useState("");
 	const {
 		match: {
 			params: { cid },
@@ -87,7 +89,11 @@ function EachCustomer(props) {
 				let docRef = db.collection("customers").doc(cid);
 				let getData = await docRef.get();
 				let custName = await getData.data().cName;
+				let custPhone = await getData.data().cPhone;
+				let custUnpaid = await getData.data().Unpaid;
 				setcName(custName);
+				setcPhone(custPhone);
+				setcBal(custUnpaid);
 				let oldOrders = await getData.data().orders;
 				let latestOrdersFormat = oldOrders.reverse();
 				latestOrdersFormat.map(async (oid) => {
@@ -143,7 +149,7 @@ function EachCustomer(props) {
 											</h1>
 
 											<h2>
-												<PhoneForwardedIcon></PhoneForwardedIcon> 8074810303
+												<PhoneForwardedIcon></PhoneForwardedIcon> {cPhone}
 											</h2>
 										</div>
 										<div
@@ -154,7 +160,7 @@ function EachCustomer(props) {
 											}}
 										>
 											<AddOrderModal cid={cid} cName={cName} />
-											<h2>Balance: &#8377;40,000</h2>
+											<h2>Balance: &#8377;{cBal}</h2>
 										</div>
 										<div
 											style={{
@@ -311,12 +317,15 @@ function EachCustomer(props) {
 														</TableHead>
 														{props.currentOrder === undefined ? (
 															<h3 style={{ textAlign: "center", color: "red" }}>
-																Nothing to show{" "}
+																Nothing to show
 															</h3>
 														) : (
 															<TableBody>
 																{props.currentOrder.items.map((item, idx) => (
-																	<TableRow key={idx}>
+																	<TableRow
+																		key={idx}
+																		style={{ backgroundColor: "#eee" }}
+																	>
 																		<>
 																			<TableCell component="th" scope="row">
 																				{item.itemName}
