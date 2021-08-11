@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 function Inputs(props) {
 	const { id } = props;
@@ -57,4 +58,4 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Inputs))

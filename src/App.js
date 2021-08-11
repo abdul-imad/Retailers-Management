@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch, withRouter } from "react-router-dom";
 import Dashboard from "./components/DashBoard";
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgotPassword";
@@ -9,6 +9,7 @@ import Orders from "./components/Orders";
 import Customers from "./components/Customers";
 import { AuthContext, AuthProvider } from "./auth/AuthProvider";
 import EachCustomer from "./components/EachCustomer";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
 	return (
@@ -21,8 +22,9 @@ function App() {
 					<PrivateRoute path="/orders/paid" abc={PaidOrders} />
 					<PrivateRoute path="/orders/unpaid" abc={UnpaidOrders} />
 					<PrivateRoute path="/orders" exact abc={Orders} />
-					<PrivateRoute path="/customers" abc={Customers} />
-					<PrivateRoute path="/customer/:cid" abc={EachCustomer} />
+					<PrivateRoute path="/retailers" abc={Customers} />
+					<PrivateRoute path="/retailer/:cid" abc={EachCustomer} />
+                    <Route component={PageNotFound}></Route>
 				</Switch>
 			</AuthProvider>
 		</BrowserRouter>

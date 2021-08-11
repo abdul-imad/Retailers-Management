@@ -11,7 +11,6 @@ import Table from "./Table";
 import SimpleModal from "./SimpleModal";
 import { Input } from "@material-ui/core";
 import SimpleSelect from "./SortCustomer";
-
 const useStyles = makeStyles({
 	backdrop: {
 		zIndex: 100,
@@ -19,17 +18,6 @@ const useStyles = makeStyles({
 	},
 	innerRoot: {
 		flexGrow: 1,
-	},
-	card: {
-		width: "22%",
-		margin: "10px",
-	},
-	dashboard: {
-		marginTop: "80px",
-		display: "flex",
-	},
-	title: {
-		fontSize: 20,
 	},
 	root: {
 		display: "flex",
@@ -112,9 +100,9 @@ function Customers(props) {
 			let customersTobeSorted = [...props.customers];
 			let sortedCustomers = customersTobeSorted.sort((customer1, customer2) => {
 				if (e.target.value === 1) {
-					return customer1.Unpaid - customer2.Unpaid;
+					return customer1.data.Unpaid - customer2.data.Unpaid;
 				} else {
-					return customer2.Unpaid - customer1.Unpaid;
+					return customer2.data.Unpaid - customer1.data.Unpaid;
 				}
 			});
 			props.setCustomers(sortedCustomers);
@@ -123,6 +111,7 @@ function Customers(props) {
 			handleSearch(props.searchValue);
 		}
 	};
+	console.log(props.allCustomers)
 
 	return (
 		<div className={classes.root}>
@@ -144,25 +133,23 @@ function Customers(props) {
 						<div className={classes.filter}>
 							<Input
 								variant="contained"
-								color="secondary"
-								placeholder="Search Customer"
+								placeholder="Search Retailer"
 								value={searchValue}
 								onChange={(e) => handleSearch(e.target.value)}
 							></Input>
-
+							<SimpleModal
+								addCustomers={addCustomers}
+								loader={loader}
+								setCName={props.setCName}
+								setCPhone={props.setCPhone}
+								open={props.open}
+								setOpen={props.setOpen}
+							></SimpleModal>
 							<SimpleSelect handleSortBy={handleSortBy} />
 						</div>
 
 						<Table />
 					</div>
-					<SimpleModal
-						addCustomers={addCustomers}
-						loader={loader}
-						setCName={props.setCName}
-						setCPhone={props.setCPhone}
-						open={props.open}
-						setOpen={props.setOpen}
-					></SimpleModal>
 				</main>
 			</div>
 
@@ -204,4 +191,4 @@ const mapDispatchToProps = (dispatch) => {
 		},
 	};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Customers);
+export default connect(mapStateToProps, mapDispatchToProps)(Customers)

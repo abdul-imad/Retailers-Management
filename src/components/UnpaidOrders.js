@@ -21,25 +21,33 @@ const useStyles = makeStyles({
 	root: {
 		display: "flex",
 	},
-	tableContainer: {
+	tableDiv: {
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	table: {
+	tableContainer: {
 		minWidth: 500,
 		maxWidth: 900,
 	},
+
 	header: {
 		color: "black",
-		fontSize: "large",
+		fontSize: "18px",
+		fontWeight: 800,
+		fontFamily: "'Titillium Web', sans-serif",
 	},
+	cName: { fontFamily: "'Titillium Web', sans-serif" },
+	date: { fontFamily: "'Titillium Web', sans-serif" },
 	paid: {
 		color: "green",
+		fontFamily: "'Titillium Web', sans-serif",
 	},
 	unpaid: {
 		color: "red",
+		fontFamily: "'Titillium Web', sans-serif",
 	},
+	totalAmount: { fontFamily: "'Titillium Web', sans-serif" },
 	row: {
 		"&:hover": {
 			backgroundColor: "rgb(250,250,250)",
@@ -51,7 +59,7 @@ const useStyles = makeStyles({
 		margin: "0 auto 50px auto",
 	},
 });
-function PaidOrders(props) {
+function UnPaidOrders(props) {
 	const { open } = store.getState().Sidebar;
 	const { orders } = props;
 	const { searchValue } = props;
@@ -65,11 +73,11 @@ function PaidOrders(props) {
 				.onSnapshot((snapshot) => {
 					ordersArr = snapshot.docs.map((doc) => {
 						let eachOrderData = doc.data();
-						return eachOrderData
+						return eachOrderData;
 					});
-					let filteredOrders = ordersArr.filter((order)=>{
-						return order.paid != 0
-					})
+					let filteredOrders = ordersArr.filter((order) => {
+						return order.unpaid > 0;
+					});
 
 					props.setAllOrders([...filteredOrders]);
 					if (searchValue === "") {
@@ -79,7 +87,6 @@ function PaidOrders(props) {
 			return unsub;
 		})();
 	}, []);
-
 
 	const handleSearch = (val) => {
 		props.setSearchValue(val);
@@ -108,6 +115,8 @@ function PaidOrders(props) {
 							flexDirection: "column",
 						}}
 					>
+						<h1 style={{ textAlign: "center" }}>Total Unpaid Orders History</h1>
+
 						<Input
 							className={classes.searchInput}
 							variant="contained"
@@ -116,60 +125,70 @@ function PaidOrders(props) {
 							value={searchValue}
 							onChange={(e) => handleSearch(e.target.value)}
 						></Input>
-						<TableContainer
-							component={Paper}
-							className={classes.tableContainer}
-						>
-							<Table className={classes.table} aria-label="simple table">
-								<TableHead>
-									<TableRow>
-										<TableCell className={classes.header}>Name</TableCell>
-										<TableCell align="right" className={classes.header}>
-											Order Date
-										</TableCell>
-										<TableCell
-											align="right"
-											className={`${classes.header} ${classes.unpaid}`}
-										>
-											Unpaid
-										</TableCell>
-										<TableCell
-											align="right"
-											className={`${classes.header} ${classes.paid}`}
-										>
-											Paid
-										</TableCell>
-										<TableCell align="right" className={classes.header}>
-											Total Amount
-										</TableCell>
-									</TableRow>
-								</TableHead>
-								{
-									orders.length==0 ? <h2 style={{color:"red"}}>No Orders found</h2>:
-									<TableBody>
-									{orders.map((eachOrder, idx) => (
-										<TableRow key={idx} className={classes.row}>
-											<TableCell component="th" scope="row">
-												{eachOrder.cName}
+						<div className={classes.tableDiv}>
+							<TableContainer
+								component={Paper}
+								className={classes.tableContainer}
+							>
+								<Table className={classes.table} aria-label="simple table">
+									<TableHead>
+										<TableRow>
+											<TableCell className={classes.header}>Name</TableCell>
+											<TableCell align="right" className={classes.header}>
+												Order Date
 											</TableCell>
-											<TableCell align="right">
-												{eachOrder.orderedDate}
+											<TableCell
+												align="right"
+												className={`${classes.header} ${classes.unpaid}`}
+											>
+												Unpaid
 											</TableCell>
-											<TableCell align="right" className={classes.unpaid}>
-												{eachOrder.unpaid}
+											<TableCell
+												align="right"
+												className={`${classes.header} ${classes.paid}`}
+											>
+												Paid
 											</TableCell>
-											<TableCell align="right" className={classes.paid}>
-												{eachOrder.paid}
-											</TableCell>
-											<TableCell align="right">
-												{eachOrder.totalAmount}
+											<TableCell align="right" className={classes.header}>
+												Total Amount
 											</TableCell>
 										</TableRow>
-									))}
-								</TableBody>
-								}
-							</Table>
-						</TableContainer>
+									</TableHead>
+									{orders.length === 0 ? (
+										<h2 style={{ color: "red" }}>No Unpaid Orders</h2>
+									) : (
+										<TableBody>
+											{orders.map((eachOrder, idx) => (
+												<TableRow key={idx} className={classes.row}>
+													<TableCell
+														component="th"
+														scope="row"
+														className={classes.cName}
+													>
+														{eachOrder.cName}
+													</TableCell>
+													<TableCell align="right" className={classes.date}>
+														{eachOrder.orderedDate}
+													</TableCell>
+													<TableCell align="right" className={classes.unpaid}>
+														{eachOrder.unpaid}
+													</TableCell>
+													<TableCell align="right" className={classes.paid}>
+														{eachOrder.paid}
+													</TableCell>
+													<TableCell
+														align="right"
+														className={classes.totalAmount}
+													>
+														{eachOrder.totalAmount}
+													</TableCell>
+												</TableRow>
+											))}
+										</TableBody>
+									)}
+								</Table>
+							</TableContainer>
+						</div>
 					</div>
 				</main>
 			</div>
@@ -194,4 +213,4 @@ const mapDispatchToProps = (dispatch) => {
 		},
 	};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(PaidOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(UnPaidOrders);

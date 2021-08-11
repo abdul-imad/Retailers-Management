@@ -40,7 +40,7 @@ export default function SimpleSelect(props) {
 					<MenuItem value={2}>Highest First</MenuItem>
 					<MenuItem value={1}>Lowest First</MenuItem>
 				</Select>
-				<FormHelperText>Sort customers by their debit</FormHelperText>
+				<FormHelperText>Sort Retailers by their debit</FormHelperText>
 			</FormControl>
 		</div>
 	);

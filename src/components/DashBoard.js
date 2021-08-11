@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
 import auth, { db } from "../firebase/firebaseConfig";
-import { useLayoutEffect } from "react";
+import { PieChart } from 'react-minimal-pie-chart';
 
 const useStyles = makeStyles({
   innerRoot: {
@@ -17,17 +17,50 @@ const useStyles = makeStyles({
   },
   card: {
     width: "22%",
+    height: "180px",
     margin: "10px",
+    position: "relative",
   },
   dashboard: {
     marginTop: "6rem",
     display: "flex",
   },
   title: {
-    fontSize: 20,
+    fontSize: 40,
+    color: "#000",
   },
   root: {
     display: "flex",
+  },
+  seeMoreBtn: {
+    width: "120px",
+    fontSize: "17px",
+    position: "absolute",
+    bottom: "0",
+    left: "calc((100% - 120px) / 2)",
+  },
+  link: {
+    color: "#eee",
+    textDecoration: "none",
+    "&:hover": {
+      color: "#fff",
+    },
+  },
+  orders: {
+    background:
+      "linear-gradient(90deg, rgba(0,255,170,0.65) 0%, rgba(64,209,176,1) 39%, rgba(0,89,69,1) 100%)",
+  },
+  paid: {
+    background:
+      "linear-gradient(90deg, rgba(85,255,93,0.65) 0%, rgba(50,182,60,1) 39%, rgba(8,89,0,1) 100%)",
+  },
+  unpaid: {
+    background:
+      "linear-gradient(90deg, rgba(255,85,85,0.65) 0%, rgba(200,58,58,1) 39%, rgba(89,0,0,1) 100%)",
+  },
+  customers: {
+    background:
+      "linear-gradient(90deg, rgba(249,255,85,0.65) 0%, rgba(200,193,58,1) 39%, rgba(89,83,0,1) 100%)",
   },
 });
 
@@ -37,6 +70,10 @@ function DashBoard(props) {
   const [totalOrdersLength, setTotalOrdersLength] = useState(0);
   const [paidOrdersLength, setPaidOrdersLength] = useState(0);
   const [unpaidOrdersLength, setUnpaidOrdersLength] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [totalPaid, setTotalPaid] = useState(0);
+  const [totalUnpaid, setTotalUnpaid] = useState(0);
+
   const history = useHistory();
   useEffect(() => {
     (async () => {
@@ -50,16 +87,24 @@ function DashBoard(props) {
         let orderslength = 0;
         let pol = 0;
         let uol = 0;
+        let temptotalRevenue = 0;
+        let temptotalPaid = 0;
+        let temptotalUnpaid = 0;
         let totalOrders = await db.collection("orders").get();
         totalOrders.forEach((doc) => {
           orderslength++;
-		let unpaidAmount = doc.data().unpaid
-			if(unpaidAmount == 0){
-				pol++
-			}else{
-				uol++
-			}
+          temptotalRevenue += doc.data().totalAmount;
+          temptotalPaid += Number(doc.data().paid);
+          temptotalUnpaid += doc.data().unpaid;
+          if (doc.data().unpaid === 0) {
+            pol++;
+          } else {
+            uol++;
+          }
         });
+        setTotalRevenue(temptotalRevenue);
+        setTotalPaid(temptotalPaid);
+        setTotalUnpaid(temptotalUnpaid);
 
         setTotalOrdersLength(orderslength);
         setPaidOrdersLength(pol);
@@ -97,7 +142,7 @@ function DashBoard(props) {
         >
           <div className={classes.drawerHeader} />
           <div className={classes.dashboard}>
-            <Card className={classes.card}>
+            <Card className={[classes.card, classes.orders]}>
               <CardContent>
                 <Typography
                   className={classes.title}
@@ -110,11 +155,13 @@ function DashBoard(props) {
                   Total Orders
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Link to="/orders">More Info</Link>
+              <CardActions className={classes.seeMoreBtn}>
+                <Link className={classes.link} to="/orders">
+                  More Info &#8594;
+                </Link>
               </CardActions>
             </Card>
-            <Card className={classes.card}>
+            <Card className={[classes.card, classes.paid]}>
               <CardContent>
                 <Typography
                   className={classes.title}
@@ -127,11 +174,13 @@ function DashBoard(props) {
                   Paid Orders
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Link to="/orders/paid">More Info</Link>
+              <CardActions className={classes.seeMoreBtn}>
+                <Link className={classes.link} to="/orders/paid">
+                  More Info &#8594;
+                </Link>
               </CardActions>
             </Card>
-            <Card className={classes.card}>
+            <Card className={[classes.card, classes.unpaid]}>
               <CardContent>
                 <Typography
                   className={classes.title}
@@ -144,29 +193,45 @@ function DashBoard(props) {
                   Unpaid Orders
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Link to="/orders/unpaid">More Info</Link>
+              <CardActions className={classes.seeMoreBtn}>
+                <Link className={classes.link} to="/orders/unpaid">
+                  More Info &#8594;
+                </Link>
               </CardActions>
             </Card>
-            <Card className={classes.card}>
+            <Card className={[classes.card, classes.customers]}>
               <CardContent>
                 <Typography
                   className={classes.title}
                   color="textSecondary"
                   gutterBottom
                 >
-                  {clength}{" "}
+                  {clength}
                 </Typography>
                 <Typography variant="h5" component="h2">
                   Total Customers
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Link to="/customers">More Info</Link>
+              <CardActions className={classes.seeMoreBtn}>
+                <Link className={classes.link} to="/customers">
+                  More Info &#8594;
+                </Link>
               </CardActions>
             </Card>
           </div>
+		  <div>
+			  <p>{totalRevenue}</p>
+			  <p>{totalPaid}</p>
+			  <p>{totalUnpaid}</p>
+		  </div>
         </main>
+		<PieChart
+  data={[
+    { title: 'One', value: 10, color: '#E38627' },
+    { title: 'Two', value: 15, color: '#C13C37' },
+    { title: 'Three', value: 20, color: '#6A2135' },
+  ]}
+/>;
       </div>
     </div>
   );
