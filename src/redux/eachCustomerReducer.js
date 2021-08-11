@@ -1,5 +1,6 @@
 const initialState = {
 	oids: [],
+	currentOrder:[]
 };
 
 const eachCustomerReducer = (state = initialState, action) => {
@@ -14,7 +15,14 @@ const eachCustomerReducer = (state = initialState, action) => {
 			return {
 				oids: [],
 			};
-		default:
+		case "set_current_order":
+			console.log(state.oids[0])
+			return {
+				...state,
+				currentOrder:state.oids[action.payload]
+
+			}
+			default:
 			return state;
 	}
 };
