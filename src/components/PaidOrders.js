@@ -68,7 +68,7 @@ function PaidOrders(props) {
 						return eachOrderData;
 					});
 					let filteredOrders = ordersArr.filter((order) => {
-						return order.paid === 0;
+						return order.unpaid === 0;
 					});
 
 					props.setAllOrders([...filteredOrders]);
