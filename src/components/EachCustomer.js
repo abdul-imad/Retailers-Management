@@ -160,7 +160,10 @@ function EachCustomer(props) {
 											}}
 										>
 											<AddOrderModal cid={cid} cName={cName} />
-											<h2>Balance: &#8377;{cBal}</h2>
+											<h2>
+												Balance: &#8377;
+												<span style={{ color: "#f00" }}>{cBal}</span>
+											</h2>
 										</div>
 										<div
 											style={{
@@ -263,7 +266,10 @@ function EachCustomer(props) {
 													Date : {props.currentOrder.orderedDate}
 												</div>
 												<div className={classes.orderDetailInfo}>
-													Total : {props.currentOrder.totalAmount}
+													Total :
+													<span style={{ color: "#f00" }}>
+														{props.currentOrder.totalAmount}
+													</span>
 												</div>
 											</div>
 										)}

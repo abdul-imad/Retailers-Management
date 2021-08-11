@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { VictoryPie } from "victory-pie";
+import { VictoryLabel } from "victory-core";
 import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,7 +11,6 @@ import Typography from "@material-ui/core/Typography";
 import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
 import auth, { db } from "../firebase/firebaseConfig";
-import { PieChart } from "react-minimal-pie-chart";
 import CircularLoader from "./CircularLoader";
 
 const useStyles = makeStyles({
@@ -75,6 +76,11 @@ function DashBoard(props) {
 	const [totalPaid, setTotalPaid] = useState(0);
 	const [totalUnpaid, setTotalUnpaid] = useState(0);
 	const [loader, setLoader] = useState(true);
+
+	const myData = [
+		{ x: `Paid Amount:₹${totalPaid}`, y: `${totalPaid}` },
+		{ x: `Due Amount:₹${totalUnpaid}`, y: `${totalUnpaid}` },
+	];
 
 	const history = useHistory();
 	useEffect(() => {
@@ -226,15 +232,30 @@ function DashBoard(props) {
 							</Card>
 						</div>
 						<div>
-							<p>{totalRevenue}</p>
-							<p>{totalPaid}</p>
-							<p>{totalUnpaid}</p>
+							<VictoryPie
+								data={myData}
+								colorScale={["#006b3c", "red"]}
+								radius={100}
+								height={300}
+								width={1000}
+								style={{
+									data: {
+										fillOpacity: 0.9,
+										stroke: "#fff",
+										strokeWidth: 2,
+									},
+									labels: {
+										fontSize: 16,
+										fill: "#082032",
+										padding: 5,
+									},
+								}}
+							/>
 						</div>
 					</main>
 				) : (
-					<CircularLoader></CircularLoader>
+					<CircularLoader />
 				)}
-				
 			</div>
 		</div>
 	);

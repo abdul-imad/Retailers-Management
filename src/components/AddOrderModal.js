@@ -27,12 +27,12 @@ const useStyles = makeStyles((theme) => ({
 		color: "#fff",
 		borderRadius: "5px",
 		height: "2.5rem",
-        width:"150px",
+		width: "150px",
 		border: "none",
 		background: "transparent",
 		cursor: "pointer",
-        fontSize:"18px",
-        padding:"5px"
+		fontSize: "18px",
+		padding: "5px",
 	},
 	input1: {
 		width: "150px",
@@ -53,7 +53,7 @@ function AddOrderModal(props) {
 	console.log("PROPS", props);
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
-	const { loader } = props;
+	const [loader, setLoader] = useState(false);
 	const [items, setItems] = useState([]);
 	const { totalAmount, paid } = props;
 
@@ -71,6 +71,7 @@ function AddOrderModal(props) {
 
 	const makeAnOrder = async (e) => {
 		e.preventDefault();
+		setLoader(true);
 		let today = new Date();
 		let dd = String(today.getDate()).padStart(2, "0");
 		let mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -107,15 +108,11 @@ function AddOrderModal(props) {
 			handleClose();
 			setItems([]);
 			props.setDefault();
+			setLoader(false);
 		} catch (err) {
 			console.log(err);
 		}
 	};
-
-	useEffect(() => {
-		props.addItems();
-		setItems([...items, <Inputs id={items.length} />]);
-	}, []);
 
 	const body = (
 		<div className={classes.paper}>
