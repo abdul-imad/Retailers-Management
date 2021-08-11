@@ -112,11 +112,6 @@ function AddOrderModal(props) {
 		}
 	};
 
-	useEffect(() => {
-		props.addItems();
-		setItems([...items, <Inputs id={items.length} />]);
-	}, []);
-
 	const body = (
 		<div className={classes.paper}>
 			<div style={{ textAlign: "center", paddingTop: "3rem" }}>
