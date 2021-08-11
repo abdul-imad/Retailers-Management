@@ -111,13 +111,13 @@ function Orders(props) {
 							display: "flex",
 							flexDirection: "column",
 						}}
-					>   
-                    <h1 style={{textAlign:"center"}}>Total Orders History</h1>
+					>
+						<h1 style={{ textAlign: "center" }}>Total Orders History</h1>
 						<Input
 							className={classes.searchInput}
 							variant="contained"
 							color="secondary"
-							placeholder="Search Customer"
+							placeholder="Search Retailer"
 							value={searchValue}
 							onChange={(e) => handleSearch(e.target.value)}
 						></Input>

@@ -121,7 +121,7 @@ function UnPaidOrders(props) {
 							className={classes.searchInput}
 							variant="contained"
 							color="secondary"
-							placeholder="Search Customer"
+							placeholder="Search Retailer"
 							value={searchValue}
 							onChange={(e) => handleSearch(e.target.value)}
 						></Input>

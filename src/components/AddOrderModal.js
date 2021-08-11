@@ -60,24 +60,24 @@ function AddOrderModal(props) {
 			paid: paid,
 			unpaid: totalAmount - paid,
 			cid: props.cid,
-            cName:props.cName,
-            createdAt:database.getTimeStamp()
+			cName: props.cName,
+			createdAt: database.getTimeStamp(),
 		};
-        
+
 		try {
 			let order1 = await db.collection("orders").add(order);
 			let oid = order1.id;
 			let docRef = await db.collection("customers").doc(props.cid);
 			let getData = await docRef.get();
 			let oldOrders = await getData.data().orders;
-      let oldPaid = await getData.data().Paid;
-      let oldUnpaid = await getData.data().Unpaid;
-      let oldAmount = await getData.data().TotalAmount;
+			let oldPaid = await getData.data().Paid;
+			let oldUnpaid = await getData.data().Unpaid;
+			let oldAmount = await getData.data().TotalAmount;
 			let newOrders = await docRef.update({
 				orders: [...oldOrders, oid],
-        Paid: oldPaid + paid,
-        Unpaid : oldUnpaid + (totalAmount-paid),
-        TotalAmount:oldAmount+totalAmount
+				Paid: oldPaid + paid,
+				Unpaid: oldUnpaid + (totalAmount - paid),
+				TotalAmount: oldAmount + totalAmount,
 			});
 			console.log(newOrders);
 			handleClose();
@@ -165,4 +165,6 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddOrderModal));
+export default withRouter(
+	connect(mapStateToProps, mapDispatchToProps)(AddOrderModal)
+);

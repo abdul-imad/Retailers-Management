@@ -111,7 +111,7 @@ function Customers(props) {
 			handleSearch(props.searchValue);
 		}
 	};
-	console.log(props.allCustomers)
+	console.log(props.allCustomers);
 
 	return (
 		<div className={classes.root}>
@@ -191,4 +191,4 @@ const mapDispatchToProps = (dispatch) => {
 		},
 	};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Customers)
+export default connect(mapStateToProps, mapDispatchToProps)(Customers);
