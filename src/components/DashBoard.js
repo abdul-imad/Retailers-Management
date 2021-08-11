@@ -10,6 +10,7 @@ import Sidebar from "./Sidebar";
 import { connect } from "react-redux";
 import auth, { db } from "../firebase/firebaseConfig";
 import { PieChart } from "react-minimal-pie-chart";
+import CircularLoader from "./CircularLoader";
 
 const useStyles = makeStyles({
 	innerRoot: {
@@ -231,16 +232,9 @@ function DashBoard(props) {
 						</div>
 					</main>
 				) : (
-					<h1 style={{ margin: "200px auto 200px auto" }}>...Loading</h1>
+					<CircularLoader></CircularLoader>
 				)}
-				<PieChart
-					data={[
-						{ title: "One", value: 10, color: "#E38627" },
-						{ title: "Two", value: 15, color: "#C13C37" },
-						{ title: "Three", value: 20, color: "#6A2135" },
-					]}
-				/>
-				;
+				
 			</div>
 		</div>
 	);
