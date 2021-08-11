@@ -19,17 +19,6 @@ const useStyles = makeStyles({
 	innerRoot: {
 		flexGrow: 1,
 	},
-	card: {
-		width: "22%",
-		margin: "10px",
-	},
-	dashboard: {
-		marginTop: "80px",
-		display: "flex",
-	},
-	title: {
-		fontSize: 20,
-	},
 	root: {
 		display: "flex",
 	},
@@ -144,25 +133,23 @@ function Customers(props) {
 						<div className={classes.filter}>
 							<Input
 								variant="contained"
-								color="secondary"
 								placeholder="Search Customer"
 								value={searchValue}
 								onChange={(e) => handleSearch(e.target.value)}
 							></Input>
-
+							<SimpleModal
+								addCustomers={addCustomers}
+								loader={loader}
+								setCName={props.setCName}
+								setCPhone={props.setCPhone}
+								open={props.open}
+								setOpen={props.setOpen}
+							></SimpleModal>
 							<SimpleSelect handleSortBy={handleSortBy} />
 						</div>
 
 						<Table />
 					</div>
-					<SimpleModal
-						addCustomers={addCustomers}
-						loader={loader}
-						setCName={props.setCName}
-						setCPhone={props.setCPhone}
-						open={props.open}
-						setOpen={props.setOpen}
-					></SimpleModal>
 				</main>
 			</div>
 

@@ -66,7 +66,6 @@ function Orders(props) {
 					ordersArr = snapshot.docs.map((doc) => {
 						let eachOrderData = doc.data();
 						let cid = eachOrderData.cid;
-						console.log(cid);
 						return eachOrderData;
 					});
 
@@ -79,12 +78,10 @@ function Orders(props) {
 		})();
 	}, []);
 
-	console.log(orders);
-
 	const handleSearch = (val) => {
 		props.setSearchValue(val);
 		let searchedCustomers = props.allOrders.filter((order) => {
-			return order.customerName.toLowerCase().includes(val.toLowerCase());
+			return order.cName.toLowerCase().includes(val.toLowerCase());
 		});
 		props.setOrders(searchedCustomers);
 	};
