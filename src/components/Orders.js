@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -13,6 +13,7 @@ import clsx from "clsx";
 import Sidebar from "./Sidebar";
 import store from "../app/store";
 import { db } from "../firebase/firebaseConfig";
+import CircularLoader from "./CircularLoader";
 
 const useStyles = makeStyles({
 	innerRoot: {
@@ -62,6 +63,7 @@ function Orders(props) {
 	const { open } = store.getState().Sidebar;
 	const { orders } = props;
 	const { searchValue } = props;
+	const [loader,setLoader] = useState(true)
 
 	useEffect(() => {
 		(async () => {
@@ -75,7 +77,7 @@ function Orders(props) {
 						let cid = eachOrderData.cid;
 						return eachOrderData;
 					});
-
+setLoader(false)
 					props.setAllOrders([...ordersArr]);
 					if (searchValue === "") {
 						props.setOrders([...ordersArr]);
@@ -121,7 +123,7 @@ function Orders(props) {
 							value={searchValue}
 							onChange={(e) => handleSearch(e.target.value)}
 						></Input>
-						<div className={classes.tableDiv}>
+						{loader == true ? <CircularLoader></CircularLoader> :<div className={classes.tableDiv}>
 							<TableContainer
 								component={Paper}
 								className={classes.tableContainer}
@@ -180,7 +182,7 @@ function Orders(props) {
 									</TableBody>
 								</Table>
 							</TableContainer>
-						</div>
+						</div>}
 					</div>
 				</main>
 			</div>
