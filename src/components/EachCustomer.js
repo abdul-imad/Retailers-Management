@@ -15,6 +15,7 @@ import store from "../app/store";
 import { withRouter } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import PhoneForwardedIcon from "@material-ui/icons/PhoneForwarded";
+import CircularLoader from "./CircularLoader";
 
 const useStyles = makeStyles({
 	innerRoot: {
@@ -115,6 +116,15 @@ function EachCustomer(props) {
 
 	const classes = useStyles();
 
+	function toRupee(x){
+		x=x.toString();
+		var lastThree = x.substring(x.length-3);
+		var otherNumbers = x.substring(0,x.length-3);
+		if(otherNumbers != '')
+			lastThree = ',' + lastThree;
+		var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+		return res
+	}
 	return (
 		<>
 			<div className={classes.root}>
@@ -160,7 +170,7 @@ function EachCustomer(props) {
 											}}
 										>
 											<AddOrderModal cid={cid} cName={cName} />
-											<h2>Balance: &#8377;{cBal}</h2>
+											<h2>Balance: &#8377;<span style={{color:"#f00"}}>{toRupee(cBal)}</span></h2>
 										</div>
 										<div
 											style={{
@@ -263,7 +273,7 @@ function EachCustomer(props) {
 													Date : {props.currentOrder.orderedDate}
 												</div>
 												<div className={classes.orderDetailInfo}>
-													Total : {props.currentOrder.totalAmount}
+													Total : &#8377; <span style={{color:"#f00"}}>{toRupee(props.currentOrder.totalAmount)}</span>
 												</div>
 											</div>
 										)}
@@ -361,7 +371,7 @@ function EachCustomer(props) {
 								</div>
 							</div>
 						) : (
-							<p>...Loading</p>
+							<CircularLoader></CircularLoader>
 						)}
 					</main>
 				</div>
