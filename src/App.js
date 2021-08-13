@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { BrowserRouter, Redirect, Route, Switch, withRouter } from "react-router-dom";
+import {
+	BrowserRouter,
+	Redirect,
+	Route,
+	Switch,
+	useLocation,
+} from "react-router-dom";
 import Dashboard from "./components/DashBoard";
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgotPassword";
@@ -12,19 +18,24 @@ import EachCustomer from "./components/EachCustomer";
 import PageNotFound from "./components/PageNotFound";
 
 function App() {
+	const customPath = useLocation().pathname;
+
 	return (
 		<BrowserRouter>
 			<AuthProvider>
 				<Switch>
-					<Route path="/login" component={Login}></Route>
-					<Route path="/forgetpassword" component={ForgetPassword}></Route>
+					<Route
+						path="/login"
+						render={(props) => <Login {...props} customPath={customPath} />}
+					/>
+					<Route path="/forgetpassword" component={ForgetPassword} />
 					<PrivateRoute path="/" exact abc={Dashboard} />
 					<PrivateRoute path="/orders/paid" abc={PaidOrders} />
 					<PrivateRoute path="/orders/unpaid" abc={UnpaidOrders} />
 					<PrivateRoute path="/orders" exact abc={Orders} />
 					<PrivateRoute path="/retailers" abc={Customers} />
 					<PrivateRoute path="/retailer/:cid" abc={EachCustomer} />
-                    <Route component={PageNotFound}></Route>
+					<Route component={PageNotFound}></Route>
 				</Switch>
 			</AuthProvider>
 		</BrowserRouter>

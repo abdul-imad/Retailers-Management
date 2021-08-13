@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
 import {
@@ -41,6 +41,7 @@ let useStyles = makeStyles({
 });
 
 export default function Login(props) {
+    console.log(props);
 	const { currentUser, login } = useContext(AuthContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -53,7 +54,11 @@ export default function Login(props) {
 			setLoader(true);
 			await login(email, password);
 			setLoader(false);
-			props.history.push("/");
+            if (props.customPath === "/login") {
+				history.push("/");
+			} else {
+				history.push(props.customPath);
+			}
 		} catch (err) {
 			console.log(err);
 			setLoader(false);
@@ -65,7 +70,12 @@ export default function Login(props) {
 
 	useEffect(() => {
 		if (currentUser) {
-			history.push("/");
+			console.log(props);
+			if (props.customPath === "/login") {
+				history.push("/");
+			} else {
+				history.push(props.customPath);
+			}
 		}
 	});
 
