@@ -1,9 +1,8 @@
 module.exports = {
-	apiKey: "AIzaSyDSXH_QC3dMIU_H8sJfwbo-0p2S8UtVe5g",
-	authDomain: "retail-management-395f3.firebaseapp.com",
-	projectId: "retail-management-395f3",
-	storageBucket: "retail-ma nagement-395f3.appspot.com",
-	messagingSenderId: "524944653618",
-	appId: "1:524944653618:web:c41373919fa66db0cbeb2b",
-	measurementId: "G-0EWP4XT0X1",
+	apiKey: 'AIzaSyBWlM9JBK0RvUWGOZQhsM2-xEz87wOm5O8',
+	authDomain: 'retail-management-4a458.firebaseapp.com',
+	projectId: 'retail-management-4a458',
+	storageBucket: 'retail-management-4a458.appspot.com',
+	messagingSenderId: '729155720919',
+	appId: '1:729155720919:web:78028d208a7feb1661c292',
 };
